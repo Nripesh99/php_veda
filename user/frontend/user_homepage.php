@@ -23,6 +23,18 @@ $image_link = $row['Image'];
 ?>
 
 <body>
+    <?php if($_GET['message'] === 'success'){
+    echo '
+        <div class="alert alert-success mt-5">
+        Profile UPdated
+      </div>';
+    }elseif($_GET['message'] === 'error'){
+        echo '
+        <div class="alert alert-danger mt-5">
+       SOmething went wrong! Update Fail. 
+      </div>';
+    }
+    ?>
     <div class="container border p-4 rounded shadow ">
         <div class="row">
             <div class="col-md-8">

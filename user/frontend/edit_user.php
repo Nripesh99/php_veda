@@ -17,6 +17,7 @@ if (empty($_SESSION)) {
     header("location: ../frontend/loginfile.php");
 }
 $id = $_SESSION['Id'];
+// $id=$_GET['id'];
 $sql = "SELECT * FROM user where Id='$id'";
 $result = mysqli_query($connect, $sql);
 $row = mysqli_fetch_assoc($result);
@@ -32,7 +33,7 @@ $Address = $row['Address'];
 <body>
 
     <div class="container mt-5">
-        <form action="../backend/edituser.php" method="POST">
+        <form action="../backend/edituser.php" method="POST" enctype="multipart/form-data">
             <div class="mb-3">
                 <label for="username" class="form-label">Name:</label>
                 <input type="text" class="form-control" name="username" id="username" value="<?php echo $Name ?>"
@@ -54,7 +55,10 @@ $Address = $row['Address'];
                 <input type="text" class="form-control" name="address" id="address" value="<?php echo $Address ?>"
                     required>
             </div>
-
+            <div class="mb-3">
+                    <label for="file" class="form-label">Upload photo:</label>
+                    <input type="file" class="form-control" name="file" id="file" >
+                </div>
             <div class="mb-3 text-center">
                 <input type="submit" class="btn btn-primary" value="Submit" name="submit" id="submit">
             </div>  

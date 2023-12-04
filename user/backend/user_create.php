@@ -1,6 +1,7 @@
 <?php
 include '../assets/navbar.php';
 include 'config.php';
+include '../assets/session.php';
 if(isset($_POST['submit'])){
     $Name=$_POST['username'];
     $Email=$_POST['email'];
@@ -10,9 +11,9 @@ if(isset($_POST['submit'])){
     $Usertype="user";
     $image_link = $_FILES['file'];
     $file_upload_path = '../assets/upload/';
-    $file_name = $image_link['name'];
+    $file_name = rand(10,10000).rand().$image_link['name'];
     $file_temp = $image_link['tmp_name'];
-
+    
     $file=$file_upload_path.$file_name;
     if(move_uploaded_file($file_temp, $file)){
         echo "";

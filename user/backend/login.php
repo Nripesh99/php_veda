@@ -22,7 +22,7 @@ if (isset($_POST)) {
                 // var_dump($_SESSION);
                 // die();
                include "../assets/session.php";
-               $Usertype =$userData['usertype'];
+               $Usertype =$userData['role'];
             //   var_dump($Usertype);
             //    die();
                

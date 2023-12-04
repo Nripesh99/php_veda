@@ -1,9 +1,10 @@
 <?php
 // Logged In UserData || Session Check
 if (!empty($_SESSION['Id'])) {
-    $id=$_SESSION['Id'];
+    $id=$_SESSION['Id'];    
+    include_once '../backend/config.php';
     // include '../assets/getusertype.php';
-    $sql = "SELECT * FROM user where Id =$id";
+    $sql = "SELECT role FROM user JOIN role on role.role_id=user.role_id where Id =$id";
     $result = mysqli_query($connect, $sql);
     $userData = mysqli_fetch_assoc($result);
 
