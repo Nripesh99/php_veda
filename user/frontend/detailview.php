@@ -15,7 +15,7 @@ include '../assets/selectfromuser.php';
 $id = $_SESSION['Id'];
 
 $row = select('user', 'Id', $id);
-$image_link = '../upload/'.$row['Image'];
+$image_link = '../upload/' . $row['Image'];
 
 ?>
 
@@ -35,18 +35,22 @@ $image_link = '../upload/'.$row['Image'];
                     <p class="h3">Email:
                         <?php echo $row['Email'] ?>
                     </p>
-                    <p class="h3">UserType:
-                        <?php echo $row['usertype'] ?>
-                    </p>
+                    <!-- <p class="h3">UserType:
+                         <?php echo $row['role'] ?>
+                    </p> -->
                 </div>
             </div>
 
             <div class="col-md-4">
 
                 <img src="<?= $image_link ?>" alt="Person" class="img-thumbnail">
+                    <!--Form bata garda jhan thik huncha -->
+                <!-- <p><a href="../edit_user.php?id=<?php echo $row['Id'] ?>" class="btn btn-primary mt-4">Edit</a></p> -->
 
-                <p><a href="edit_user.php?id<?php $row['Id'] ?>" class="btn btn-primary mt-4">Edit</a>
-                </p>
+                <form method="post" action="/php_veda/user/frontend/edit_user.php">
+                    <input type="hidden" value="<?php echo $row['Id'] ?>">
+                    <button type="submit" class="btn btn-primary mt-3">Edit by post</button>
+                </form>
             </div>
         </div>
     </div>

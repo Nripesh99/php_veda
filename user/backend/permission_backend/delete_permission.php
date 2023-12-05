@@ -1,8 +1,7 @@
 <?php
 include '../../backend/config.php';
-$role_id=$_GET['id'];
-
-    $sql="DELETE FROM role WHERE role_id=$role_id";
+$per_id=$_GET['id'];
+    $sql="DELETE FROM permission WHERE per_id=$per_id";
     $result=mysqli_query($connect,$sql);
     if($result){
         echo "Deleted  succesfully";

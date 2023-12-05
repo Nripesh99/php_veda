@@ -13,11 +13,10 @@ include '../assets/navbar.php';
 include '../backend/config.php';
 // include '../assets/session.php';
 session_start();
-if (empty($_SESSION)) {
-    header("location: ../frontend/loginfile.php");
-}
+// if (empty($_SESSION)) {
+//     header("location: ../frontend/loginfile.php");
+// }
 $id = $_SESSION['Id'];
-// $id=$_GET['id'];
 $sql = "SELECT * FROM user where Id='$id'";
 $result = mysqli_query($connect, $sql);
 $row = mysqli_fetch_assoc($result);

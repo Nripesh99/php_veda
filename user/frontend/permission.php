@@ -7,24 +7,23 @@
     <title>Document</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
 
-</head>
-
-</head>
-
+</head> 
 <body>
     <tr>
         <?php
         include '../backend/config.php';
         include '../assets/select_all.php';
-        $row = selectAll('role');
-        ?>
+        $row = selectAll('permission');
+        // var_dump($row);
+        // die();
+        ?> 
     <tr>
         <!-- <?Php include '../assets/navbar.php'; ?> -->
         <div class="content">
             <div class="container">
                 <div class="page-title">
                     <h3>User Roles
-                        <a href="add_role.php" class="btn btn-sm btn-outline-primary float-end"><i class="fas fa-plus-circle"></i> Add</a>
+                        <a href="add_per.php" class="btn btn-sm btn-outline-primary float-end"><i class="fas fa-plus-circle"></i> Add</a>
                 
                     </h3>
                 </div>
@@ -35,7 +34,6 @@
                                 <tr>
                                     <th>Number</th>
                                     <th>Role Name</th>
-                                    <th>Role Desc</th>
                                     <th>Action</th>
 
                                 </tr>
@@ -46,11 +44,11 @@
                                 foreach ($row as $rows) {
                                     echo '<tr>';
                                     echo '<td>' . $counter . '</td>';
-                                    echo '<td>' . $rows['role'] . '</td>';
-                                    echo '<td>' . $rows['role_description'] . '</td>';
+                                    echo '<td>' . $rows['per_name'] . '</td>';
+                                    // echo '<td>' . $rows['role_description'] . '</td>';
                                     echo '<td>';
-                                    echo '<a href="edit_role.php?id=' . $rows['role_id'] . '" class="btn btn-outline-secondary btn-rounded"><i class="fas fa-toggle-on"></i>Edit</a>';
-                                    echo '<a href="../backend/role_backend/delete_role.php?id=' . $rows['role_id'] .'" class="btn btn-outline-info btn-rounded"><i class="fas fa-pen">Delete</i></a>';
+                                    echo '<a href="edit_per.php?id=' . $rows['per_id'] . '" class="btn btn-outline-secondary btn-rounded"><i class="fas fa-toggle-on"></i>Edit</a>';
+                                    echo '<a href="../backend/permission_backend/delete_permission.php?id=' . $rows['per_id'] .'" class="btn btn-outline-info btn-rounded"><i class="fas fa-pen">Delete</i></a>';
                                     // echo '<a href="" class="btn btn-outline-danger btn-rounded"><i class="fas fa-trash"></i></a>';
                                     echo ' </td>';
                                     echo '</tr>';
