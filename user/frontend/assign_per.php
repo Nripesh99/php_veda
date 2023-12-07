@@ -6,8 +6,6 @@
     <title>Document</title>
 </head>
 <body>
-    <?php
-    // $id=$_SESSION['Id'];
-    ?>
-<a class='btn' href="edit_user.php?id=<?php echo $row['Id']; ?>">Edit</a></body>
+    
+</body>
 </html>

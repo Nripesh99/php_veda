@@ -16,7 +16,8 @@ session_start();
 // if (empty($_SESSION)) {
 //     header("location: ../frontend/loginfile.php");
 // }
-$id = $_SESSION['Id'];
+$id = $_GET['id'];
+var_dump($_GET['id']);
 $sql = "SELECT * FROM user where Id='$id'";
 $result = mysqli_query($connect, $sql);
 $row = mysqli_fetch_assoc($result);
@@ -25,6 +26,8 @@ $Email = $row['Email'];
 $Password = $row['Password'];
 $Address = $row['Address'];
 
+include '../assets/select_all.php';
+$row_a = selectAll('role');
 
 
 ?>
@@ -44,10 +47,10 @@ $Address = $row['Address'];
                 <input type="email" class="form-control" name="email" id="email" value="<?php echo $Email ?>" required>
             </div>
 
-            <div class="mb-3">
-                <label for="passwords" class="form-label">Password:</label>
-                <input type="password" class="form-control" name="password" id="passwords" required>
-            </div>
+                <!-- <div class="mb-3">
+                    <label for="passwords" class="form-label">Password:</label>
+                    <input type="password" class="form-control" name="password" id="passwords" required>
+                </div> -->
 
             <div class="mb-3">
                 <label for="address" class="form-label">Address:</label>
@@ -55,12 +58,33 @@ $Address = $row['Address'];
                     required>
             </div>
             <div class="mb-3">
-                    <label for="file" class="form-label">Upload photo:</label>
-                    <input type="file" class="form-control" name="file" id="file" >
-                </div>
+                <label for="file" class="form-label">Upload photo:</label>
+                <input type="file" class="form-control" name="file" id="file">
+            </div>
+            <div class="mb-3">
+                <label for="role" class="form-label">Change Roll:</label>
+                <select id="cars" name="role" class="form-select">
+                    <?php
+                    foreach ($row_a as $rows) {
+                        if ($rows['role'] !== 'super_admin') {
+                            ?>
+                            <option value="<?php echo $rows['role_id'] ?>">
+                                <?php
+                                 echo $rows['role'];
+                                ?>
+                            </option>
+                            <?php
+                        }
+                    }
+                    ?>
+                </select>
+            </div>
+            <div class="mb-3">
+                <input type="text" class="form-control" name="id" id="id" value="<?php echo $row['Id']?>" required hidden>
+
             <div class="mb-3 text-center">
                 <input type="submit" class="btn btn-primary" value="Submit" name="submit" id="submit">
-            </div>  
+            </div>
         </form>
     </div>
 

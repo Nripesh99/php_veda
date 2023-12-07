@@ -1,15 +1,19 @@
 <?php
 include 'config.php';
 session_start();
-$id = $_SESSION['Id'];
+
 if (isset($_POST['submit'])) {
+    $id = $_POST['id'];
+    $role_id=$_POST['role_id'];
+    // var_dump($role_id);
+    // die();
     $name = $_POST['username'];
     $email = $_POST['email'];
     $password = $_POST['password'];
     $hash_password = password_hash($password, PASSWORD_DEFAULT);
     $address = $_POST['address'];
     if ($_FILES['file']['error'] === UPLOAD_ERR_NO_FILE) {
-        $sql = "UPDATE user SET Name='$name', Email='$email',Password='$hash_password',Address='$address' WHERE Id=$id";
+        $sql = "UPDATE user SET Name='$name', Email='$email',Password='$hash_password',Address='$address',role_id='$role_id' WHERE Id=$id";
         $result = mysqli_query($connect, $sql);
         if ($result) {
             echo "Succsefully updated";
@@ -31,11 +35,12 @@ if (isset($_POST['submit'])) {
             echo "unable to upload file";
             die();
         }
-        $sql = "UPDATE user SET Name='$name', Email='$email',Password='$hash_password',Address='$address', Image='$file' WHERE Id=$id";
+        $sql = "UPDATE user SET Name='$name', Email='$email',Password='$hash_password',Address='$address', Image='$file',role_id='$role_id' WHERE Id=$id";
         // var_dump($sql);
         // die();
 
         $result = mysqli_query($connect, $sql);
+        
         header('Location:../frontend/user_homepage.php?message=success');
 
     }
