@@ -1,15 +1,24 @@
 <?php
+
 include '../backend/config.php';
 $id = $_GET['id'];
 include '../assets/selectfromuser.php';
 include '../assets/select_all.php';
-
+//selecting role
 $row = select('role', 'role_id', $id);
-$rows=selectAll('permission');
-$roleid=select('roles_permission','permission_id',$id);
+//selecting all permission
+$rows = selectAll('permission');
+$sqlis = "SELECT permission_id FROM roles_permission where role_id=$id";
+
+$resulr = mysqli_query($connect, $sqlis);
+$perm_id = array();
+while ($result = mysqli_fetch_assoc($resulr)) {
+    $perm_id[] = $result['permission_id'];
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -36,22 +45,26 @@ $roleid=select('roles_permission','permission_id',$id);
 
                     <div class="mb-3 ">
                         <label for="description" class="form-label">Role Description:</label>
-                        <input type="text" class="form-control" name="role_desc" id="role_desc" value=<?php echo $row['role_description']?> required>
+                        <input type="text" class="form-control" name="role_desc" id="role_desc" value=<?php echo $row['role_description'] ?> required>
                     </div>
                     <div class="mb-3 ">
                         <label for="Add Permission" class="form-label">Permission:</label><br>
                         <?php
-                        foreach($rows as $per){
-                            echo $per['per_name'] ;
-                            echo '<input type="checkbox" name="checkbox_values[]" value="' . $per['per_id'] . '"><br>';
+                        // $perm_id = is_array($perm_id) ? $perm_id : [];  
+                        foreach ($rows as $per) {
+                            echo $per['per_name'];
+
+
+                            $isChecked = in_array($per['per_id'], $perm_id);
+                            echo '<input type="checkbox" name="checkbox_values[]" value="' . $per['per_id'] . '" ' . ($isChecked ? 'checked' : '') . '><br>';
                         }
-                        
+
                         ?>
-                        
+
                     </div>
 
                     <div class="mb-3 text-center">
-                        <button type="submit" class="btn btn-primary" name="submit" id="submit">Edit Role</button>
+                        <button type="submit" class="btn btn-primary"  id="submit">Edit Role</button>
                     </div>
 
 </body>

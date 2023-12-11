@@ -1,14 +1,19 @@
 <?php
-if (isset($_POST['submit'])) {
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
    include '../config.php';
    $role_id = $_POST['role_id'];
    $role_name = $_POST['role_name'];
    $role_desc = $_POST['role_desc'];
-      
+   if(!empty($_POST['checkbox_values'])){
 
+      $checkbox=$_POST['checkbox_values'];
+   }
+   //first Empty the whole database and then again add the permission to the role
+   $sqlDelete = "DELETE FROM roles_permission WHERE role_id = $role_id";
+   $resultDelete = mysqli_query($connect, $sqlDelete);
    if (!empty($_POST['checkbox_values'])) {
-
+   
       $checkboxValues[] = $_POST['checkbox_values'];
 
       foreach ($checkboxValues as $checkboxvalue) {
