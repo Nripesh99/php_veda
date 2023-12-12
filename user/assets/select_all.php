@@ -1,9 +1,9 @@
 <?php
-function selectAll($table)
+function selectAll($table, $column='*')
 {
     include '../backend/config.php';
     
-    $sql = "SELECT * FROM " . $table;
+    $sql = "SELECT $column FROM " . $table;
     $result = mysqli_query($connect, $sql);
     if(!empty($result)){
 

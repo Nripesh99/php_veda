@@ -2,32 +2,51 @@
 include 'config.php';
 session_start();
 include '../assets/selectfromuser.php';
+include '../assets/select_all.php';
 //session halna baki cha
-$session_id=1;
-$row=select('user','Id','1', 'role_id');
+$session_id = 1;
+$row = select('user', 'Id', '1', '   role_id');
 //user ko role
+
 // $role_id=$row['role_id'];
 // $condition = "role_id ='".$row. "'";
-$premission=select('roles_permission','role_id ', $row['role_id'], 'permission_id');
-var_dump($premission);
-
-function check_user_role($allowed_roles)
+// $permission = array();
+$allowed_permission = array();
+// $permission = selectAll('permission', 'per_id');
+$sql = "SELECT permission_id FROM roles_permission WHERE role_id=1";
+$result = mysqli_query($connect, $sql);
+while ($rows = mysqli_fetch_assoc($result)) {
+    $allowed_permission[] = $rows['permission_id'];
+}
+// var_dump($allowed_permission);
+// die();
+function check_user_permission($allowed_permissions,$per_id)
 {
-    // Assuming session_start() has been called before this function
-    $user_id = $_SESSION['user_id']; // Assuming the session key is 'user_id'
+    $found = false;
+    // foreach ($allowed_permissions as $element) {
+        if (in_array(3, $allowed_permissions)) {
+            // var_dump(in_array($element, $permission));
+            $found = true;
+
+            var_dump($found);
+            die();
+
+            // break;
+        }
     
-    // Assuming $this->Role_model->get_role($user_id) is a function that retrieves the user role
-
-
-    if (!in_array($premission, $allowed_roles)) {
-        header('Location: ' . 'ecommerce/logout'); // Redirect using header
-        exit(); // Make sure to exit after redirecting
+    if ($found) {
+        var_dump($found);
+            die();
+        // echo 'found';
+    } else {
+        var_dump($found);
+        die();
+        // header('Location: ../instagram.com');
     }
 }
-$data = [2,4,6];
-check_user_role($data);
+
+check_user_permission($allowed_permission,$per_id);
+
 // Usage
-check_user_role([2, 4, 8]);
+// check_user_role([2, 4, 8]);
 
-
-?>

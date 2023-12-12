@@ -1,5 +1,6 @@
 <?php
 include '../../backend/config.php';
+include '../access.php';
 if(isset($_POST['submit'])){
     $role_name=$_POST['role_name'];
     $role_desc=$_POST['role_desc'];
