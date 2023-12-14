@@ -2,6 +2,8 @@
 include 'config.php';
 $sql = "SELECT `Id`, `Name`, `Email`, `Address`, `Image`, `role` FROM `user` JOIN `role` ON user.role_id=role.role_id;";
 $result = mysqli_query($connect, $sql);
+echo "Number of rows: " . mysqli_num_rows($result);
+
 if (mysqli_num_rows($result) > 0) {
     $counter = 0;
     while ($row = mysqli_fetch_assoc($result)) {
@@ -10,7 +12,7 @@ if (mysqli_num_rows($result) > 0) {
         echo '<div class="row">';
         echo '  <div class="col-md-6">';
         echo '    <a href="#">';
-        echo '      <img class="img-fluid rounded mb-3 mb-md-0" src="'.$row['Image'].'" alt="">';
+        echo '      <img class="img-fluid rounded mb-3 mb-md-0" src="'.$row['Image'].'" alt="Image">';
         echo '    </a>';
         echo '  </div>';
         echo '  <div class="col-md-5">';

@@ -9,14 +9,33 @@
 </head>
 
 <body>
-    
+
     <?php
-    session_start();
+    include '../assets/session.php';
+    include '../backend/access.php';
+    check_user_permission($allowed_permission, '5');
     include '../assets/navbar.php';
     if (!empty($_SESSION)) {
-        header("location: ../assets/session.php");
+        include '../backend/config.php';
+        $id = $_SESSION['Id'];
+        include_once '../assets/select_join.php';
+        $Usertype = select_join('user', 'role', 'role_id', 'Id', $id, 'role');
+        // var_dump($Usertype);
+        // die();  
+        $usertype = implode($Usertype);
+
+        if ($usertype === 'super_admin' || $usertype === 'admin') {
+            if ($usertype === 'super_admin') {
+                header('Location: ../frontend/super_admin.php');
+            } else {
+                header('Location: ../frontend/admin_admin.php');
+            }
+        } else {
+            header('Location: ../frontend/user_homepage.php');
+        }
     }
-  
+
+
     ?>
     <div class="container mt-5">
         <div class="row justify-content-center">

@@ -9,13 +9,12 @@
 </head>
 
 <?php
+include '../assets/session.php';      
 include '../assets/navbar.php';
 include '../backend/config.php';
+include '../backend/access.php';
+check_user_permission($allowed_permission,'5');
 // include '../assets/session.php';
-session_start();
-// if (empty($_SESSION)) {
-//     header("location: ../frontend/loginfile.php");
-// }
 $id = $_GET['id'];
 var_dump($_GET['id']);
 $sql = "SELECT * FROM user where Id='$id'";

@@ -1,10 +1,11 @@
 <?php
-include '../assets/session.php';
-include '../backend/access.php';
-check_user_permission($allowed_permission, '5');
+
 include '../backend/config.php';
 $id = $_GET['id'];
-$row = select('role', 'role_id', $id);
+include '../assets/selectfromuser.php';
+include '../assets/select_all.php';
+//selecting role
+$row = select('permission', 'per_id', $id);
 //selecting all permission
 $rows = selectAll('permission');
 $sqlis = "SELECT permission_id FROM roles_permission where role_id=$id";
@@ -63,7 +64,7 @@ while ($result = mysqli_fetch_assoc($resulr)) {
                     </div>
 
                     <div class="mb-3 text-center">
-                        <button type="submit" class="btn btn-primary" id="submit">Edit Role</button>
+                        <button type="submit" class="btn btn-primary"  id="submit">Edit Role</button>
                     </div>
 
 </body>

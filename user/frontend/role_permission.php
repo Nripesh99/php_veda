@@ -8,6 +8,11 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
 
 </head>
+<?php
+include '../assets/session.php';
+include '../backend/access.php';
+check_user_permission($allowed_permission, '5');
+?>
 
 <body>
     <div class="content">
@@ -24,10 +29,10 @@
                                 <?php $permissions = permission();
                                 foreach ($permissions as $value => $key)
                                     echo '<th>' . $value . '</th>'
-                                ?>
-                                <!-- <th>Action</th> -->
-                            </thead>
-                            <tbody>
+                                        ?>
+                                    <!-- <th>Action</th> -->
+                                </thead>
+                                <tbody>
                                 <?php role('role', $permissions); ?>
                             </tbody>
                         </table>
@@ -37,7 +42,7 @@
             </div>
         </div>
     </div>
-    
+
 
 </body>
 

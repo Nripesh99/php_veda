@@ -9,9 +9,10 @@
 
 </head>
 <?php
-session_start();
+
 include '../assets/session.php';
-include '../assets/selectfromuser.php';
+include '../backend/access.php';
+check_user_permission($allowed_permission,'5');
 $id = $_SESSION['Id'];
 
 $row = select('user', 'Id', $id);

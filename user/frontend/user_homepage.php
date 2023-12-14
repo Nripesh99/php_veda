@@ -8,33 +8,22 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
 </head>
 <?php
-include '../assets/navbar.php';
-// include '../assets/session.php';
+// include '../assets/navbar.php';
 include '../assets/selectfromuser.php';
-session_start();
-// if(empty($_SESSION)){
-//     header("location: ../frontend/loginfile.php");
-// }
+include '../assets/session.php';
+include '../assets/select_join.php';
+include '../backend/config.php';
 $id = $_SESSION['Id'];
-// var_dump($_SESSION);
-// die();
+$rows = select_join('user','role', 'role_id','Id', $id,'role');
+$usertype=implode($rows);
+if($usertype!='user'){ 
+ header('Location: ../assets/redirect.php');
+}
 $row = select('user', 'Id', $id);
 $image_link = $row['Image'];
 ?>
 
 <body>
-    <?php if($_GET['message'] === 'success'){
-    echo '
-        <div class="alert alert-success mt-5">
-        Profile UPdated
-      </div>';
-    }elseif($_GET['message'] === 'error'){
-        echo '
-        <div class="alert alert-danger mt-5">
-       SOmething went wrong! Update Fail. 
-      </div>';
-    }
-    ?>
     <div class="container border p-4 rounded shadow ">
         <div class="row">
             <div class="col-md-8">
@@ -58,7 +47,7 @@ $image_link = $row['Image'];
         </div>
     </div>
 </body>
-<?php include '../assets/footer.php'; ?>
+<!-- <?php include '../assets/footer.php'; ?> -->
 
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>

@@ -1,3 +1,6 @@
+<?php
+include '../assets/session.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 

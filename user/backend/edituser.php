@@ -1,7 +1,6 @@
 <?php
 include 'config.php';
-session_start();
-
+include 'assets/session.php';
 if (isset($_POST['submit'])) {
     $id = $_POST['id'];
     $role_id=$_POST['role_id'];

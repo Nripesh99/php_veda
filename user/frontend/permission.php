@@ -12,8 +12,11 @@
 <body>
     <tr>
         <?php
+        include '../assets/session.php';      
+        include '../backend/access.php';
+        check_user_permission($allowed_permission,'5');
         include '../backend/config.php';
-        include '../assets/select_all.php';
+        // include '../assets/select_all.php';
         $row = selectAll('permission');
         // var_dump($row);
         // die();

@@ -26,18 +26,15 @@
                 <div class="box box-primary">
                     <div class="box-body">
                         <?php
-                        session_start();
-                        if (!empty($_SESSION['message'])) {
-                            ?>
-                            <div class="alert alert-info">
-                           <!-- <?= $_SESSION['message']?> -->
-                           <?php echo $_SESSION['message'];
-                           unset($_SESSION['message']);
-                           ?>
+                        include '../assets/session.php';
+                        include '../backend/access.php';
+                        check_user_permission($allowed_permission, '5');
+
+                        ?>
 
                             </div>
                             <?php
-                        }
+                        
                         ?>
                         <table width="100%" class="table table-hover" id="dataTables-example">
                             <thead>
