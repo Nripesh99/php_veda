@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
 </head>
 <?php
-// include '../assets/navbar.php';
+include '../assets/navbar2.php';
 include '../assets/selectfromuser.php';
 include '../assets/session.php';
 include '../assets/select_join.php';
@@ -32,7 +32,6 @@ $image_link = $row['Image'];
                     <p class="h3">Name: <?php echo $row['Name'] ?></p>
                     <p class="h3">Address: <?php echo $row['Address'] ?></p>
                     <p class="h3">Email:<?php echo $row['Email']?></p>
-                    <p class="h3">UserType:<?php echo $row['usertype']?></p>
                 </div>
             </div>
 

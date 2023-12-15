@@ -2,8 +2,6 @@
 session_start();
 include 'config.php';
 if (isset($_POST)) {
-    
-    
     require_once ("../assets/select_join.php");
     include "../assets/selectfromuser.php";
     $email = $_POST['email'];
@@ -14,7 +12,6 @@ if (isset($_POST)) {
     if ($row) {
         $hash_password = $row['Password'];
         if (password_verify($password, $hash_password)) {
-
             $_SESSION['Id'] = $row['Id'];
             // var_dump($_SESSION);
             // die();

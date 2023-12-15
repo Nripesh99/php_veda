@@ -11,11 +11,12 @@
 <body>
 
     <?php
-    include '../assets/session.php';
-    include '../backend/access.php';
-    check_user_permission($allowed_permission, '5');
-    include '../assets/navbar.php';
-    if (!empty($_SESSION)) {
+    // include '../assets/session.php';
+    // include '../backend/access.php';
+    // check_user_permission($allowed_permission, '5');
+    session_start();
+    include '../assets/navbar2.php';
+    if (!empty($_SESSION['Id'])) {
         include '../backend/config.php';
         $id = $_SESSION['Id'];
         include_once '../assets/select_join.php';
@@ -37,7 +38,7 @@
 
 
     ?>
-    <div class="container mt-5">
+    <div class="container mt-5 ">
         <div class="row justify-content-center">
             <div class="col-md-6">
 
@@ -58,7 +59,8 @@
                         <button type="submit" class="btn btn-primary" id="submit">Login</button>
                     </div>
                 </form>
-                <div class="mb-3 text-center">
+                
+                <div class="mb-3 row text-center justify-content-center">
                     <a href="Createuser.php" class="mb-2 text-center">Register</a>
                 </div>
 

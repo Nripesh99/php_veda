@@ -11,7 +11,9 @@
 <?php
 include '../assets/session.php';
 include '../backend/access.php';
-check_user_permission($allowed_permission, '5');
+include '../assets/navbar2.php';
+
+check_user_permission($allowed_permission, '[3,4]');
 ?>
 
 <body>

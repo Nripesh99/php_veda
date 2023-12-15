@@ -11,9 +11,15 @@
 </head>
 
 <body>
+    <?php
+    include '../assets/session.php';
+    include '../assets/navbar2.php'; ?>
+    <button class="btn btn-primary " onclick="history.back()">
+        <i class="bi bi-arrow-return-left"></i> Go Back
+    </button>
     <tr>
         <?php
-        include '../assets/session.php';
+
         include '../backend/config.php';
         require_once('../assets/select_all.php');
         include '../backend/access.php';
@@ -29,7 +35,8 @@
         
         ?>
     <tr>
-        <!-- <?Php include '../assets/navbar.php'; ?> -->
+
+        </div>
         <div class="content">
             <div class="container">
                 <div class="page-title">

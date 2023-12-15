@@ -10,11 +10,10 @@
 
 <?php
 include '../assets/session.php';      
-include '../assets/navbar.php';
+include '../assets/navbar2.php';
 include '../backend/config.php';
 include '../backend/access.php';
 check_user_permission($allowed_permission,'5');
-// include '../assets/session.php';
 $id = $_GET['id'];
 var_dump($_GET['id']);
 $sql = "SELECT * FROM user where Id='$id'";
@@ -25,7 +24,7 @@ $Email = $row['Email'];
 $Password = $row['Password'];
 $Address = $row['Address'];
 
-include '../assets/select_all.php';
+// include '../assets/select_all.php';
 $row_a = selectAll('role');
 
 

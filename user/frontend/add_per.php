@@ -1,5 +1,6 @@
 <?php
 include '../assets/session.php';
+include '../assets/navbar2.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">

@@ -11,8 +11,9 @@
 <?php
 
 include '../assets/session.php';
+include '../assets/navbar2.php';
 include '../backend/access.php';
-check_user_permission($allowed_permission,'5');
+// check_user_permission($allowed_permission,'5');
 $id = $_SESSION['Id'];
 
 $row = select('user', 'Id', $id);

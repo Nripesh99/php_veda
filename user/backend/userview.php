@@ -19,13 +19,12 @@ if (mysqli_num_rows($result) > 0) {
         echo '    <h3> User Type :' . $row['role'] .'  </h3>';
         echo '    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium veniam exercitationem expedita laborum at voluptate. Labore, voluptates totam at aut nemo deserunt rem magni pariatur quos perspiciatis atque eveniet unde.</p>';
         echo '    <a class="btn btn-primary" href="../frontend/detailview.php/Id=' . $row['Id'] . '">View More</a>';
-
         echo '  </div>';
         echo '</div>';
-        echo '</div>';  
-        $counter ++;
+        echo '</div>';
 
-
+        $counter++;
     }
 }
+   
 ?>

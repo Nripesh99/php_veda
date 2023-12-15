@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mini.css/2.3.7/mini-default.min.css">
 </head>
 
 </head>
@@ -14,7 +14,12 @@
 <body>
     <tr>
     <tr>
-        <!-- <?Php include '../assets/navbar.php'; ?> -->
+         <?Php
+         include '../assets/session.php';
+          include '../assets/navbar2.php'; ?> 
+         <button class="btn btn-primary " onclick="history.back()">
+            <i class="bi bi-arrow-return-left"></i> Go Back
+          </button>
         <div class="content">
             <div class="container">
                 <div class="page-title">
@@ -26,7 +31,7 @@
                 <div class="box box-primary">
                     <div class="box-body">
                         <?php
-                        include '../assets/session.php';
+                        
                         include '../backend/access.php';
                         check_user_permission($allowed_permission, '5');
 

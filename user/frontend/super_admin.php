@@ -1,15 +1,15 @@
 <?php
 include '../assets/session.php';
 include '../assets/select_join.php';
+
 include '../backend/config.php';
 $id = $_SESSION['Id'];
-$rows = select_join('user','role', 'role_id','Id', $id,'role');
-$usertype=implode($rows);
-if($usertype!='super_admin'){
- header('Location: ../assets/redirect.php');
+$rows = select_join('user', 'role', 'role_id', 'Id', $id, 'role');
+$usertype = implode($rows);
+if ($usertype != 'super_admin') {
+    header('Location: ../assets/redirect.php');
 }
-include '../assets/navbar.php';
-// include '../assets/footer.php';
+
 include '../backend/config.php';
 
 
@@ -25,12 +25,12 @@ include '../backend/config.php';
 </head>
 
 <body>
-    <div class="container">
+    <?= include '../assets/navbar2.php';?>
+</div>
+        <?php
+        include '../backend/userview.php'; ?>
 
-        <?php include '../backend/userview.php'; ?>
 
-
-    </div>
 </body>
 
 </html>

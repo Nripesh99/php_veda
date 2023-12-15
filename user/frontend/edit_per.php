@@ -1,9 +1,12 @@
 <?php
-
+include '../assets/session.php';
+include '../assets/navbar2.php';
+include '../backend/access.php';
+check_user_permission($allowed_permission, '4');
 include '../backend/config.php';
 $id = $_GET['id'];
-include '../assets/selectfromuser.php';
-include '../assets/select_all.php';
+// include '../assets/selectfromuser.php';
+// include '../assets/select_all.php';
 //selecting role
 $row = select('permission', 'per_id', $id);
 //selecting all permission
@@ -16,15 +19,7 @@ while ($result = mysqli_fetch_assoc($resulr)) {
     $perm_id[] = $result['permission_id'];
 }
 ?>
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-</head>
 
 <body>
     <div class="container-fluid mt-5">
@@ -64,7 +59,7 @@ while ($result = mysqli_fetch_assoc($resulr)) {
                     </div>
 
                     <div class="mb-3 text-center">
-                        <button type="submit" class="btn btn-primary"  id="submit">Edit Role</button>
+                        <button type="submit" class="btn btn-primary" id="submit">Edit Role</button>
                     </div>
 
 </body>

@@ -1,6 +1,7 @@
 <?php
 include '../assets/session.php';
 include '../backend/access.php';
+include '../assets/navbar2.php';
 check_user_permission($allowed_permission, '5');
 include '../backend/config.php';
 $id = $_GET['id'];
@@ -18,12 +19,7 @@ while ($result = mysqli_fetch_assoc($resulr)) {
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-</head>
+
 
 <body>
     <div class="container-fluid mt-5">
@@ -66,6 +62,6 @@ while ($result = mysqli_fetch_assoc($resulr)) {
                         <button type="submit" class="btn btn-primary" id="submit">Edit Role</button>
                     </div>
 
-</body>
+<!-- </body>
 
-</html>
+</html> -->

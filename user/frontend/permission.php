@@ -14,13 +14,18 @@
         <?php
         include '../assets/session.php';      
         include '../backend/access.php';
-        check_user_permission($allowed_permission,'5');
+        include '../assets/navbar2.php';
+
+        check_user_permission($allowed_permission,'4');
         include '../backend/config.php';
         // include '../assets/select_all.php';
         $row = selectAll('permission');
         // var_dump($row);
         // die();
         ?>
+                <button class="btn btn-primary " onclick="history.back()">
+            <i class="bi bi-arrow-return-left"></i> Go Back
+          </button>
     <tr>
         <!-- <?Php include '../assets/navbar.php'; ?> -->
         <div class="content">
