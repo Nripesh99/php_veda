@@ -4,9 +4,18 @@ $id=$_GET['id'];
 $sql="DELETE FROM user where Id=$id";
 $result=mysqli_query($connect,$sql);
 if($result){
+    if($id === $SESSION['Id']){
+
+        header('location: logout.php');
+        exit;
+    }
     // session_start();
     // $_SESSION['message'] = "Deleted succesfully";
-    header('Location: /php_veda/user/frontend/user.php');
+    else{
+       header('Location: /php_veda/user/frontend/user.php');
+        exit;
+
+    }
 
 }
 else{

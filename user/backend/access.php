@@ -18,26 +18,30 @@ $allowed_permission = array();
 $sql = "SELECT permission_id FROM roles_permission WHERE role_id=$role_id";
 $result = mysqli_query($connect, $sql);
 // var_dump($sql);
+// die();
 
 while ($rows = mysqli_fetch_assoc($result)) {
+    // var_dump($rows);
     $allowed_permission[] = $rows['permission_id'];
 }
 function check_user_permission($allowed_permission,$per_id)
 {
+ 
     $found = false;
     // foreach ($allowed_permissions as $element) {
         if (in_array($per_id, $allowed_permission)) {
             // var_dump(in_array($element, $permission));
+            // die();
             $found = true;
 
             // break;
         }
     
     if ($found) {
-        var_dump($found);
+        echo '';
         
     } else {
-        var_dump($found);
+        // echo 'keacha ';
         header('Location: ../assets/redirect.php');
         // header('Location: ../instagram.com');
     }

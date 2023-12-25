@@ -8,6 +8,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
    if(!empty($_POST['checkbox_values'])){
 
       $checkbox=$_POST['checkbox_values'];
+         // var_dump($checkbox);
+         // die();
    }
    //first Empty the whole database and then again add the permission to the role
    $sqlDelete = "DELETE FROM roles_permission WHERE role_id = $role_id";

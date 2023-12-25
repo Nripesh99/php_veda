@@ -1,25 +1,26 @@
 <?php
 include 'config.php';
-include 'assets/session.php';
+include '../assets/session.php';
 if (isset($_POST['submit'])) {
+   
     $id = $_POST['id'];
-    $role_id=$_POST['role_id'];
+    $role_id=$_POST['role'];
     // var_dump($role_id);
     // die();
     $name = $_POST['username'];
     $email = $_POST['email'];
-    $password = $_POST['password'];
-    $hash_password = password_hash($password, PASSWORD_DEFAULT);
+    // $password = $_POST['password'];
+    // $hash_password = password_hash($password, PASSWORD_DEFAULT);
     $address = $_POST['address'];
     if ($_FILES['file']['error'] === UPLOAD_ERR_NO_FILE) {
-        $sql = "UPDATE user SET Name='$name', Email='$email',Password='$hash_password',Address='$address',role_id='$role_id' WHERE Id=$id";
+        $sql = "UPDATE user SET Name='$name', Email='$email',Address='$address',role_id='$role_id' WHERE Id=$id";
         $result = mysqli_query($connect, $sql);
         if ($result) {
-            echo "Succsefully updated";
-            header('Location: ../frontend/user_homepage.php?message=success');
+            $_SESSION['message']='Edited succesfully';
+            header('Location: ../assets/redirect.php');
         } else {
-            echo "error occured";
-
+            $_SESSION['message']='Failed';
+            header('Location:../frontend/redirect.php');
         }
     } else {
         $image_link = $_FILES['file'];
@@ -32,15 +33,20 @@ if (isset($_POST['submit'])) {
             echo "";
         } else {
             echo "unable to upload file";
-            die();
         }
         $sql = "UPDATE user SET Name='$name', Email='$email',Password='$hash_password',Address='$address', Image='$file',role_id='$role_id' WHERE Id=$id";
         // var_dump($sql);
         // die();
 
         $result = mysqli_query($connect, $sql);
-        
-        header('Location:../frontend/user_homepage.php?message=success');
+        if($result){
+            $_SESSION['message']='Edited succesfully';
+            header('Location:../frontend/user.php');
+
+        }else{
+            $_SESSION['message']='Failed';
+            header('Location:../frontend/user.php');
+        }
 
     }
 }

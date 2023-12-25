@@ -16,6 +16,13 @@
     <tr>
          <?Php
          include '../assets/session.php';
+         if(isset($_SESSION['message'])) {
+            $message = $_SESSION['message'];
+            unset($_SESSION['message']);
+            echo $message;
+        }
+         include '../backend/access.php';
+         check_user_permission($allowed_permission, '5');
           include '../assets/navbar2.php'; ?> 
          <button class="btn btn-primary " onclick="history.back()">
             <i class="bi bi-arrow-return-left"></i> Go Back
@@ -32,8 +39,7 @@
                     <div class="box-body">
                         <?php
                         
-                        include '../backend/access.php';
-                        check_user_permission($allowed_permission, '5');
+                       
 
                         ?>
 

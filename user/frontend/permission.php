@@ -12,20 +12,20 @@
 <body>
     <tr>
         <?php
-        include '../assets/session.php';      
+        include '../assets/session.php';
         include '../backend/access.php';
         include '../assets/navbar2.php';
 
-        check_user_permission($allowed_permission,'4');
+        check_user_permission($allowed_permission, '4');
         include '../backend/config.php';
         // include '../assets/select_all.php';
         $row = selectAll('permission');
         // var_dump($row);
         // die();
         ?>
-                <button class="btn btn-primary " onclick="history.back()">
+        <button class="btn btn-primary " onclick="history.back()">
             <i class="bi bi-arrow-return-left"></i> Go Back
-          </button>
+        </button>
     <tr>
         <!-- <?Php include '../assets/navbar.php'; ?> -->
         <div class="content">
@@ -57,8 +57,8 @@
                                     echo '<td>' . $rows['per_name'] . '</td>';
                                     // echo '<td>' . $rows['role_description'] . '</td>';
                                     echo '<td>';
-                                    echo '<a href="edit_per.php?id=' . $rows['per_id'] . '" class="btn btn-outline-secondary btn-rounded"><i class="fas fa-toggle-on"></i>Edit</a>';
-                                    echo '<a href="../backend/permission_backend/delete_permission.php?id=' . $rows['per_id'] . '" class="btn btn-outline-info btn-rounded"><i class="fas fa-pen">Delete</i></a>';
+                                    // echo '<a href="edit_per.php?id=' . $rows['per_id'] . '" class="btn btn-outline-secondary btn-rounded"><i class="fas fa-toggle-on"></i>Edit</a>';
+                                    echo '<a href="#" class="btn btn-outline-info btn-rounded" onclick="confirmDelete(' . $rows['per_id'] . ')"><i class="fas fa-pen"></i>Delete</a>';
                                     // echo '<a href="" class="btn btn-outline-danger btn-rounded"><i class="fas fa-trash"></i></a>';
                                     echo ' </td>';
                                     echo '</tr>';
@@ -80,6 +80,31 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
     integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
     crossorigin="anonymous"></script>
+<script>
+    function confirmDelete(perId) {
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: "btn btn-success",
+                cancelButton: "btn btn-danger"
+            },
+            buttonsStyling: false
+        });
 
+        swalWithBootstrapButtons.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Yes, delete it!",
+            cancelButtonText: "No, cancel!",
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Redirect to the delete URL
+                window.location.href = '../backend/permission_backend/delete_permission.php?id=' + perId;
+            }
+        });
+    }
+</script>
 
 </html>

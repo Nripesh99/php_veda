@@ -29,8 +29,9 @@ if(isset($_POST['submit'])){
     $sql="INSERT INTO `user`(`Name`, `Email`, `Password`, `Address`,  `Image`,`role_id`) VALUES ('$Name','$Email','$hash_password','$Address', '$file','$user_role')";
     $result=mysqli_query($connect,$sql);
     if($result){
+        
         echo "user created succesfully";
-        header('Location:login.php');
+        header('Location:../frontend/loginfile.php');
     }
     else{
         echo"failed";

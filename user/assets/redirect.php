@@ -9,7 +9,7 @@ $usertype = implode(select_join('user', 'role', 'role_id', 'Id', $_SESSION['Id']
 // $usertype = implode($Usertype);
 if ($usertype === 'super_admin' || $usertype === 'admin') {
     if ($usertype === 'super_admin') {
-        header('Location: ../frontend/super_admin.php');
+        header('Location: ../frontend/admin_dashboard.php');
     } else {
         header('Location: ../frontend/admin_admin.php');
     }

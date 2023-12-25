@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mini.css/2.3.7/mini-default.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <style>
         body {
             font-family: "Lato", sans-serif;
             margin: 0;
-            
+
         }
 
         .topnav {
@@ -90,33 +90,82 @@
             <a href="#home">Home</a>
             <a href="#news">News</a>
             <a href="#contact">Contact</a>
-            
-
-    
-
             <a href="javascript:void(0)" class="icon" onclick="openNav()">&#9776;</a>
             <?php
-        if ($_SESSION) {
-            echo '<a href="../backend/logout.php"><button type="button" class="btn btn-danger position-absolute top-0 end-0 mt-2">Logout</button></a>';
-        } else {
-            echo '<a href="../frontend/loginfile.php"><button type="button" class="btn btn-danger position-absolute top-0 end-0 mt-2">Logout</button></a>';
-        }
-        ?>
-        </div>
-       
-
+            if ($_SESSION) {
+                echo '<a class=" btn-danger btn-sm position-absolute top-0 end-0 mt-0" href="../backend/logout.php">Logout</a>';
+            } else {
+                echo '<a class="btn btn-success btn-sm position-absolute top-0 end-0 mt-0" href="../frontend/loginfile.php">Login</a>';
+            }
+            ?>
+            </div>
 
 
     </div>
 
-    <div id="main">
-        <div id="mySidenav" class="sidenav">
-            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-            <a href="#">About</a>
-            <a href="#">Services</a>
-            <a href="#">Clients</a>
-            <a href="#">Contact</a>
-        </div>
+    <?php
+
+    require_once 'selectfromuser.php';
+    if (!empty($_SESSION)) {
+        $row = select('user', 'Id', $_SESSION['Id'], 'role_id');
+
+        $roleLinks = [
+            '3' => [
+                ['label' => 'Home', 'url' => 'admin_dashboard.php'],
+                ['label' => 'User', 'url' => 'user.php'],
+                ['label' => 'Roles', 'url' => 'role.php'],
+                ['label' => 'Permission', 'url' => 'permission.php'],
+            ],
+            '2' => [
+                ['label' => 'About', 'url' => 'about.php'],
+                ['label' => 'Services', 'url' => 'services.php'],
+                ['label' => 'Contact', 'url' => 'contact.php'],
+            ],
+            '1' => [
+                ['label' => 'About', 'url' => 'about.php'],
+                ['label' => 'Contact', 'url' => 'contact.php'],
+            ],
+            // Add more roles as needed
+        ];
+
+        // Set default links for unknown roles
+        $defaultLinks = [
+            ['label' => 'About', 'url' => 'about.php'],
+            ['label' => 'Services', 'url' => 'services.php'],
+            ['label' => 'Clients', 'url' => 'clients.php'],
+            ['label' => 'Contact', 'url' => 'contact.php'],
+        ];
+
+        // Determine the links based on the user's role
+        $userLinks = isset($roleLinks[$row['role_id']]) ? $roleLinks[$row['role_id']] : $defaultLinks;
+
+        ?>
+
+        <div id="main">
+            <div id="mySidenav" class="sidenav">
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+
+                <?php
+                // Output the navigation links
+                foreach ($userLinks as $link) {
+                    echo '<a href="' . $link['url'] . '">' . $link['label'] . '</a>';
+                }
+                ?>
+            </div>
+
+            <?php
+    } else {
+
+        echo '<div id="mySidenav" class="sidenav">';
+        echo '<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>';
+        echo '<a href="#">About</a>';
+        echo '<a href="#">Services</a>';
+        echo '<a href="#">Clients</a>';
+        echo '<a href="#">Contact</a>';
+        echo '</div>';
+    }
+
+    ?>
 
 
         <!-- <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span> -->
@@ -133,6 +182,8 @@
                 document.getElementById("main").style.marginLeft = "0";
             }
         </script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
 
 </body>

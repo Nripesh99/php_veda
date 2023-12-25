@@ -3,13 +3,32 @@
 <?php
 
 include '../assets/session.php';
-include '../backend/config.php';
 include '../backend/access.php';
-$user_count = count(selectAll('user'));
-$role_count = count(selectAll('role'));
 $permission_count = count(selectAll('permission'));
 
+include '../backend/config.php';
+include '../assets/navbar2.php';
+
+$user_count = count(selectAll('user'));
+$role_count = count(selectAll('role'));
+if(isset($_SESSION['message'])) {
+    $message = $_SESSION['message'];
+    unset($_SESSION['message']);
+    echo '<div id="messages">' . $message . '</div>';
+}
 ?>
+<script>
+// Automatically remove the message after 30 seconds
+document.addEventListener("DOMContentLoaded", function() {
+    setTimeout(function() {
+        var messageElement = document.getElementById("messages");
+        if (messageElement) {
+            messageElement.style.display = "none";
+        }
+    }, 3000); // 30 seconds
+});
+</script>
+
 
 <head>
     <link rel="stylesheet" type="text/css"
@@ -19,7 +38,6 @@ $permission_count = count(selectAll('permission'));
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,200,400,500,600" rel="stylesheet" type="text/css">
 </head>
 
-<?= include '../assets/navbar2.php' ?>
 <!-- <div id="main">
   <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
 </div> -->
@@ -70,9 +88,10 @@ $permission_count = count(selectAll('permission'));
             </div>
         </div>
     </div>
+
 </div>
 </body>
 
-</body>
+
 
 </html>

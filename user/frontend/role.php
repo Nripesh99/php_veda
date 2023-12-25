@@ -13,6 +13,8 @@
 <body>
     <?php
     include '../assets/session.php';
+    include '../backend/access.php';
+    check_user_permission($allowed_permission, '3');
     include '../assets/navbar2.php'; ?>
     <button class="btn btn-primary " onclick="history.back()">
         <i class="bi bi-arrow-return-left"></i> Go Back
@@ -22,8 +24,7 @@
 
         include '../backend/config.php';
         require_once('../assets/select_all.php');
-        include '../backend/access.php';
-        check_user_permission($allowed_permission, '3');
+
         include '../backend/config.php';
         // include '../assets/select_all.php';
         $row = selectAll('role');
@@ -41,8 +42,8 @@
             <div class="container">
                 <div class="page-title">
                     <h3>User Roles
-                        <a href="add_role.php" class="btn btn-sm btn-outline-primary float-end"><i
-                                class="fas fa-plus-circle"></i> Add</a>
+                        <a href="add_role.php" class="btn btn-sm btn-outline-primary float-end btn-lg"><i
+                                class="fas fa-plus-circle "></i> Add</a>
                     </h3>
                 </div>
                 <div class="box box-primary">
@@ -66,10 +67,9 @@
                                     echo '<td>' . $rows['role'] . '</td>';
                                     echo '<td>' . $rows['role_description'] . '</td>';
                                     echo '<td>';
-                                    echo '<a href="edit_role.php?id=' . $rows['role_id'] . '" class="btn btn-outline-secondary btn-rounded"><i class="fas fa-toggle-on"></i>Edit</a>';
-                                    echo '<a href="../backend/role_backend/delete_role.php?id=' . $rows['role_id'] . '" class="btn btn-outline-info btn-rounded"><i class="fas fa-pen">Delete</i></a>';
-                                    // echo '<a href="" class="btn btn-outline-danger btn-rounded"><i class="fas fa-trash"></i></a>';
-                                    echo ' </td>';
+                                    echo '<a href="edit_role.php?id=' . $rows['role_id'] . '" class="btn btn-outline-info btn-rounded mr-2"><i class="fas fa-toggle-on pr-2"></i>Edit</a>';
+                                    echo '<a href="#" class="btn btn-outline-danger btn-rounded ml-2" onclick="confirmDelete(' . $rows['role_id'] . ')"><i class="fas fa-toggle-on"></i>Delete</a>';
+                                    echo '</td>';
                                     echo '</tr>';
                                     $counter++;
                                 }
@@ -92,3 +92,29 @@
 
 
 </html>
+<script>
+function confirmDelete(roleId) {
+  const swalWithBootstrapButtons = Swal.mixin({
+    customClass: {
+      confirmButton: "btn btn-success",
+      cancelButton: "btn btn-danger"
+    },
+    buttonsStyling: false
+  });
+
+  swalWithBootstrapButtons.fire({
+    title: "Are you sure?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: "Yes, delete it!",
+    cancelButtonText: "No, cancel!",
+    reverseButtons: true
+  }).then((result) => {
+    if (result.isConfirmed) {
+      // Redirect to the delete URL
+      window.location.href = '../backend/role_backend/delete_role.php?id=' + roleId;
+    }
+  });
+}
+</script>

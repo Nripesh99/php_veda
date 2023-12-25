@@ -27,7 +27,7 @@
 
         if ($usertype === 'super_admin' || $usertype === 'admin') {
             if ($usertype === 'super_admin') {
-                header('Location: ../frontend/super_admin.php');
+                header('Location: ../frontend/admin_dashboard.php');
             } else {
                 header('Location: ../frontend/admin_admin.php');
             }
@@ -58,11 +58,11 @@
                     <div class="mb-3 text-center">
                         <button type="submit" class="btn btn-primary" id="submit">Login</button>
                     </div>
+                    <div class="text-center">
+                        <p>Not a User? <a href="Createuser.php">Register</a></p>
+                    </div>
                 </form>
-                
-                <div class="mb-3 row text-center justify-content-center">
-                    <a href="Createuser.php" class="mb-2 text-center">Register</a>
-                </div>
+
 
             </div>
         </div>

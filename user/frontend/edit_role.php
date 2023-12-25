@@ -26,7 +26,7 @@ while ($result = mysqli_fetch_assoc($resulr)) {
         <div class="row justify-content-center">
             <div class="col-md-6">
 
-                <form class="border p-4 rounded shadow" action="../backend/role_backend/edit_role.php" method="POST">
+                <form class="border p-4 rounded shadow form-control" action="../backend/role_backend/edit_role.php" method="POST">
                     <h2 class="text-center mb-4">Edit Role and Permission</h2>
                     <div class="mb-3">
                         <!-- <label for="username" class="form-label"> Role Name:</label> -->
@@ -42,6 +42,7 @@ while ($result = mysqli_fetch_assoc($resulr)) {
                         <label for="description" class="form-label">Role Description:</label>
                         <input type="text" class="form-control" name="role_desc" id="role_desc" value=<?php echo $row['role_description'] ?> required>
                     </div>
+                    
                     <div class="mb-3 ">
                         <label for="Add Permission" class="form-label">Permission:</label><br>
                         <?php
@@ -55,6 +56,7 @@ while ($result = mysqli_fetch_assoc($resulr)) {
                         }
 
                         ?>
+
 
                     </div>
 
