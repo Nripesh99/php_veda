@@ -10,6 +10,7 @@ if(isset($_POST['submit'])){
     $sql="INSERT INTO `role`( `role`, `role_description`) VALUES ('$role_name','$role_desc')";
     $result=mysqli_query($connect,$sql);
     if($result){
+        $_SESSION['message']='role added succesfully';
         header('Location:../../frontend/role.php');
     }
 }

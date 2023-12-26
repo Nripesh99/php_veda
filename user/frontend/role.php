@@ -19,6 +19,28 @@
     <button class="btn btn-primary " onclick="history.back()">
         <i class="bi bi-arrow-return-left"></i> Go Back
     </button>
+    <?php
+    if (isset($_SESSION['message'])) {
+        $message = $_SESSION['message'];
+        unset($_SESSION['message']);
+        echo '<div class="container mt-3">';
+        echo '<div id="messages" class="alert alert-dark text-center">' . $message . '</div>';
+        echo '</div>';
+
+    }
+    ?>
+
+    <script>
+        // Automatically remove the message after 30 seconds
+        document.addEventListener("DOMContentLoaded", function () {
+            setTimeout(function () {
+                var messageElement = document.getElementById("messages");
+                if (messageElement) {
+                    messageElement.style.display = "none";
+                }
+            }, 3000); // 30 seconds
+        });
+    </script>
     <tr>
         <?php
 
@@ -93,28 +115,28 @@
 
 </html>
 <script>
-function confirmDelete(roleId) {
-  const swalWithBootstrapButtons = Swal.mixin({
-    customClass: {
-      confirmButton: "btn btn-success",
-      cancelButton: "btn btn-danger"
-    },
-    buttonsStyling: false
-  });
+    function confirmDelete(roleId) {
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: "btn btn-success",
+                cancelButton: "btn btn-danger"
+            },
+            buttonsStyling: false
+        });
 
-  swalWithBootstrapButtons.fire({
-    title: "Are you sure?",
-    text: "You won't be able to revert this!",
-    icon: "warning",
-    showCancelButton: true,
-    confirmButtonText: "Yes, delete it!",
-    cancelButtonText: "No, cancel!",
-    reverseButtons: true
-  }).then((result) => {
-    if (result.isConfirmed) {
-      // Redirect to the delete URL
-      window.location.href = '../backend/role_backend/delete_role.php?id=' + roleId;
+        swalWithBootstrapButtons.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Yes, delete it!",
+            cancelButtonText: "No, cancel!",
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Redirect to the delete URL
+                window.location.href = '../backend/role_backend/delete_role.php?id=' + roleId;
+            }
+        });
     }
-  });
-}
 </script>

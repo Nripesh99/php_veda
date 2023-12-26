@@ -106,7 +106,7 @@
     <?php
 
     require_once 'selectfromuser.php';
-    if (!empty($_SESSION)) {
+    if (!empty($_SESSION['Id'])) {
         $row = select('user', 'Id', $_SESSION['Id'], 'role_id');
 
         $roleLinks = [
@@ -123,7 +123,7 @@
             ],
             '1' => [
                 ['label' => 'About', 'url' => 'about.php'],
-                ['label' => 'Contact', 'url' => 'contact.php'],
+                ['label' => 'Edit', 'url' => 'edit_user.php'],
             ],
             // Add more roles as needed
         ];

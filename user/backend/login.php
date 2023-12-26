@@ -27,9 +27,15 @@ if (isset($_POST)) {
                 header('Location: ../frontend/user_homepage.php');
             }
         } else {
-            echo "Wrong password";
+            $_SESSION['message']="Wrong password";
+            var_dump($_SESSION);
+            header('Location: ../frontend/loginfile.php');
+            die();
         }
     } else {
-        echo "No user found";
+        $_SESSION['message']="No user found";
+        var_dump($_SESSION);
+        header('Location: ../frontend/loginfile.php');
+        
     }
 }

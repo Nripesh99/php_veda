@@ -1,21 +1,23 @@
 <?php
+session_start();
+
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
    include '../config.php';
    $role_id = $_POST['role_id'];
    $role_name = $_POST['role_name'];
    $role_desc = $_POST['role_desc'];
-   if(!empty($_POST['checkbox_values'])){
+   if (!empty($_POST['checkbox_values'])) {
 
-      $checkbox=$_POST['checkbox_values'];
-         // var_dump($checkbox);
-         // die();
+      $checkbox = $_POST['checkbox_values'];
+      // var_dump($checkbox);
+      // die();
    }
    //first Empty the whole database and then again add the permission to the role
    $sqlDelete = "DELETE FROM roles_permission WHERE role_id = $role_id";
    $resultDelete = mysqli_query($connect, $sqlDelete);
    if (!empty($_POST['checkbox_values'])) {
-   
+
       $checkboxValues[] = $_POST['checkbox_values'];
 
       foreach ($checkboxValues as $checkboxvalue) {
@@ -29,7 +31,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
    $sql = "UPDATE `role` SET `role`='$role_name',`role_description`='$role_desc' WHERE  `role_id`=$role_id";
    $result = mysqli_query($connect, $sql);
    if ($result) {
-      echo "updated succesfully";
+      $_SESSION['message'] = "updated role  succesfully";
+      // print_r ($_SESSION);
+      header('Location: ../../frontend/role.php');
    }
 
 }

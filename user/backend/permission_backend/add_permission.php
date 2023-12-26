@@ -5,6 +5,8 @@ if(isset($_POST['submit'])){
     $sql="INSERT INTO `permission`( `per_name`) VALUES ('$per_name')";
      $result=mysqli_query($connect,$sql);
     if($result){
+        session_start();
+        $_SESSION['message']="Added permission";
         header('Location:../../frontend/permission.php');
     }
 }

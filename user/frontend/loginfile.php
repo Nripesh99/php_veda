@@ -15,8 +15,53 @@
     // include '../backend/access.php';
     // check_user_permission($allowed_permission, '5');
     session_start();
-    include '../assets/navbar2.php';
     if (!empty($_SESSION['Id'])) {
+
+        include '../backend/config.php';
+        $id = $_SESSION['Id'];
+        include_once '../assets/select_join.php';
+        $Usertype = select_join('user', 'role', 'role_id', 'Id', $id, 'role');
+        // var_dump($Usertype);
+        // die();  
+        $usertype = implode($Usertype);
+
+        if ($usertype === 'super_admin' || $usertype === 'admin') {
+            if ($usertype === 'super_admin') {
+                header('Location: ../frontend/admin_dashboard.php');
+            } else {
+                header('Location: ../frontend/admin_admin.php');
+            }
+        } else {
+            header('Location: ../frontend/user_homepage.php');
+        }
+    }
+    include '../assets/navbar2.php';
+    ?>
+     <?php
+    if (isset($_SESSION['message'])) {
+        $message = $_SESSION['message'];
+        unset($_SESSION['message']);
+        echo '<div class="container mt-3">';
+        echo '<div id="messages" class="alert alert-dark text-center">' . $message . '</div>';
+        echo '</div>';
+
+    }
+    ?>
+
+    <script>
+        // Automatically remove the message after 30 seconds
+        document.addEventListener("DOMContentLoaded", function () {
+            setTimeout(function () {
+                var messageElement = document.getElementById("messages");
+                if (messageElement) {
+                    messageElement.style.display = "none";
+                }
+            }, 3000); // 30 seconds
+        });
+    </script>
+    <?php
+    if (!empty($_SESSION['Id'])) {
+
         include '../backend/config.php';
         $id = $_SESSION['Id'];
         include_once '../assets/select_join.php';

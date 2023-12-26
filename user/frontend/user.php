@@ -14,19 +14,37 @@
 <body>
     <tr>
     <tr>
-         <?Php
-         include '../assets/session.php';
-         if(isset($_SESSION['message'])) {
+        <?Php
+        include '../assets/session.php';
+
+        include '../backend/access.php';
+        check_user_permission($allowed_permission, '5');
+        include '../assets/navbar2.php'; ?>
+        <?php
+        if (isset($_SESSION['message'])) {
             $message = $_SESSION['message'];
             unset($_SESSION['message']);
-            echo $message;
+            echo '<div class="container mt-3">';
+            echo '<div id="messages" class="alert alert-dark text-center">' . $message . '</div>';
+            echo '</div>';
+
         }
-         include '../backend/access.php';
-         check_user_permission($allowed_permission, '5');
-          include '../assets/navbar2.php'; ?> 
-         <button class="btn btn-primary " onclick="history.back()">
+        ?>
+
+        <script>
+            // Automatically remove the message after 30 seconds
+            document.addEventListener("DOMContentLoaded", function () {
+                setTimeout(function () {
+                    var messageElement = document.getElementById("messages");
+                    if (messageElement) {
+                        messageElement.style.display = "none";
+                    }
+                }, 3000); // 30 seconds
+            });
+        </script>
+        <button class="btn btn-primary " onclick="history.back()">
             <i class="bi bi-arrow-return-left"></i> Go Back
-          </button>
+        </button>
         <div class="content">
             <div class="container">
                 <div class="page-title">
@@ -38,37 +56,42 @@
                 <div class="box box-primary">
                     <div class="box-body">
                         <?php
-                        
-                       
+
+
 
                         ?>
-
-                            </div>
-                            <?php
-                        
-                        ?>
-                        <table width="100%" class="table table-hover" id="dataTables-example">
-                            <thead>
-                                <tr>
-                                    <th>S.No</th>
-                                    <th> Name</th>
-                                    <th> Email</th>
-                                    <th>Address</th>
-                                    <th>Image</th>
-                                    <th>Action</th>
-
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                include '../backend/user.php';
-                                ?>
-                            </tbody>
-                        </table>
 
                     </div>
+                    <?php
+
+                    ?>
+                    <table width="100%" class="table table-hover" id="dataTables-example">
+                        <thead>
+                            <tr>
+                                <th>S.No</th>
+                                <th> Name</th>
+                                <th> Email</th>
+                                <th>Address</th>
+                                <th>Image</th>
+                                <th>Action</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            include '../backend/user.php';
+                            ?>
+                        </tbody>
+                    </table>
+                    <script>
+                        // Activate DataTable on your table
+                        $(document).ready(function () {
+                            $('#dataTables-example').DataTable();
+                        });
+                    </script>
                 </div>
             </div>
+        </div>
         </div>
         </div>
 

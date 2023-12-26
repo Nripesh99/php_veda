@@ -1,10 +1,14 @@
 <?php
 include 'config.php';
 include '../assets/session.php';
+session_start();
 if (isset($_POST['submit'])) {
-   
+
     $id = $_POST['id'];
-    $role_id=$_POST['role'];
+
+
+        $role_id = $_POST['role'];
+    
     // var_dump($role_id);
     // die();
     $name = $_POST['username'];
@@ -16,10 +20,10 @@ if (isset($_POST['submit'])) {
         $sql = "UPDATE user SET Name='$name', Email='$email',Address='$address',role_id='$role_id' WHERE Id=$id";
         $result = mysqli_query($connect, $sql);
         if ($result) {
-            $_SESSION['message']='Edited succesfully';
+            $_SESSION['message'] = 'Edited succesfully';
             header('Location: ../assets/redirect.php');
         } else {
-            $_SESSION['message']='Failed';
+            $_SESSION['message'] = 'Failed';
             header('Location:../frontend/redirect.php');
         }
     } else {
@@ -39,12 +43,12 @@ if (isset($_POST['submit'])) {
         // die();
 
         $result = mysqli_query($connect, $sql);
-        if($result){
-            $_SESSION['message']='Edited succesfully';
+        if ($result) {
+            $_SESSION['message'] = 'Edited succesfully';
             header('Location:../frontend/user.php');
 
-        }else{
-            $_SESSION['message']='Failed';
+        } else {
+            $_SESSION['message'] = 'Failed';
             header('Location:../frontend/user.php');
         }
 

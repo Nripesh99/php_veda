@@ -18,6 +18,31 @@
 
         check_user_permission($allowed_permission, '4');
         include '../backend/config.php';
+        ?>
+            <?php
+    if (isset($_SESSION['message'])) {
+        $message = $_SESSION['message'];
+        unset($_SESSION['message']);
+        echo '<div class="container mt-3">';
+        echo '<div id="messages" class="alert alert-dark text-center">' . $message . '</div>';
+        echo '</div>';
+
+    }
+    ?>
+
+    <script>
+        // Automatically remove the message after 30 seconds
+        document.addEventListener("DOMContentLoaded", function () {
+            setTimeout(function () {
+                var messageElement = document.getElementById("messages");
+                if (messageElement) {
+                    messageElement.style.display = "none";
+                }
+            }, 3000); // 30 seconds
+        });
+    </script>
+    <?php
+
         // include '../assets/select_all.php';
         $row = selectAll('permission');
         // var_dump($row);

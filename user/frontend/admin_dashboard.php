@@ -14,8 +14,11 @@ $role_count = count(selectAll('role'));
 if(isset($_SESSION['message'])) {
     $message = $_SESSION['message'];
     unset($_SESSION['message']);
-    echo '<div id="messages">' . $message . '</div>';
+    echo '<div class="container mt-3">';
+    echo '<div id="messages" class="alert alert-dark text-center">' . $message . '</div>';
+    echo '</div>';
 }
+
 ?>
 <script>
 // Automatically remove the message after 30 seconds

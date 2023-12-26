@@ -1,4 +1,5 @@
 <?php
+session_start();
 // include '../assets/navbar.php';
 include 'config.php';
 // include '../assets/session.php';
@@ -30,7 +31,7 @@ if(isset($_POST['submit'])){
     $result=mysqli_query($connect,$sql);
     if($result){
         
-        echo "user created succesfully";
+        $_SESSION['message'] ="user created succesfully";
         header('Location:../frontend/loginfile.php');
     }
     else{

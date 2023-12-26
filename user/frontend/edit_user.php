@@ -69,44 +69,54 @@ $row_a = selectAll('role');
                 <input type="file" class="form-control" name="file" id="file">
             </div>
             <?php if ($currentRole['role'] !== 'user') { ?>
-                <div class="mb-3">
-                    <label for="role" class="form-label">Change Role </label>
-                    <select id="cars" name="role" class="form-select">
-                        <?php
+            <div class="mb-3">
+
+                <label for="role" class="form-label">Change Role</label>
+                <?php if($row['role_id'] == "3"):?>
+                <input type="hidden" name="role" value="3">
+                <input type="text" class="form-control" value="Super Admin" readonly>
+                </select>
+                <?php else:?>
+                <select id="cars" name="role" class="form-select">
+                    <?php
                         foreach ($row_a as $rows) { 
                             if ($rows['role'] !== 'super_admin') {
                                 $selected = ($rows['role'] === $currentRole) ? 'selected' : '';
                                 $disabled = ($rows['role'] === $currentRole) ? 'disabled' : '';
                                 ?>
-                                <option value="<?php echo $rows['role_id'] ?>" <?=$row['role_id'] === $rows['role_id'] ? 'selected' : '' ?> <?php echo $selected . $disabled; ?>>
-                                    <?php echo $rows['role']; ?>
-                                </option>
-                                <?php
+                    <option value="<?php echo $rows['role_id'] ?>"
+                        <?=$row['role_id'] === $rows['role_id'] ? 'selected' : '' ?>
+                        <?php echo $selected . $disabled; ?>>
+                        <?php echo $rows['role']; ?>
+                    </option>
+                    <?php
                             }
                         }
                         ?>
-                    </select>
-                </div>
+                </select>
+                <?php endif;?>
+
+            </div>
             <?php } else { ?>
-                    <div class="mb-3">
-                        <label for="role" class="form-label">Change Role:</label>
-                        <select id="cars" name="role" class="form-select">
-                            <?php
+            <div class="mb-3">
+                <label for="role" class="form-label">Change Role:</label>
+                <select id="cars" name="role" class="form-select">
+                    <?php
                             foreach ($row_a as $rows) {
                                 if ($rows['role'] !== 'super_admin') {
                                     $selected = ($rows['role'] === $currentRole) ? 'selected' : '';
                                     $disabled = ($rows['role'] === $currentRole) ? 'disabled' : '';
                                     ?>
-                                    <option value="<?php echo $rows['role_id'] ?>" <?php echo $selected . $disabled; ?>hidden>
-                                        <?php echo $rows['role']; ?>
-                                    </option>
-                                    <?php
+                    <option value="<?php echo $rows['role_id'] ?>" <?php echo $selected . $disabled; ?>hidden>
+                        <?php echo $rows['role']; ?>
+                    </option>
+                    <?php
                                 }
                             }
                             ?>
-                        </select>
-                    </div>
-                <?php } ?>
+                </select>
+            </div>
+            <?php } ?>
             <div class="mb-3">
                 <input type="text" class="form-control" name="id" id="id" value="<?php echo $row['Id'] ?>" required
                     hidden>
