@@ -92,6 +92,7 @@
             <a href="#contact">Contact</a> -->
             <a href="javascript:void(0)" class="icon" onclick="openNav()">&#9776;</a>
             <?php
+            session_start();
             if ($_SESSION) {
                 echo '<a class=" btn-danger btn-sm position-absolute top-0 end-0 mt-0" href="../backend/logout.php">Logout</a>';
             } else {
@@ -106,40 +107,67 @@
     <?php
 
     require_once 'selectfromuser.php';
+    include '../backend/config.php';
     if (!empty($_SESSION['Id'])) {
         $row = select('user', 'Id', $_SESSION['Id'], 'role_id');
+        $roles = implode($row);
+        //getting list of permissions
+        $sql_i = "SELECT permission_id FROM roles_permission WHERE role_id = $roles";
+        $results = mysqli_query($connect, $sql_i);
+        $permissionId = array();
+        if ($results) {
+            while ($row = mysqli_fetch_assoc($results)) {
+                $permissionId[] = $row['permission_id'];
+            }
+        } else {
+            echo "Error: " . mysqli_error($connect);
+        }
+        // Define a mapping of permission IDs to URLs
+        $permissionData = array(
+            '3' => array('url' => '/role.php', 'display_name' => ' Roles'),
+            '4' => array('url' => '/permissionss.php', 'display_name' => ' Permissions'),
+            '5' => array('url' => '/user.php', 'display_name' => ' Users'),
+            // Add more permissions and their corresponding information as needed
+        );
+        // Selecting permission name based on the permission id given
+        $per_name = array();
+        foreach ($permissionId as $per_id) {
+            $sqli_3 = "SELECT per_name FROM permission WHERE per_id = $per_id";
+            $results_3 = mysqli_query($connect, $sqli_3);
 
-        
+            if ($results_3) {
+                while ($row_3 = mysqli_fetch_assoc($results_3)) {
+                    $per_name[] = $row_3['per_name'];
+                }
+            } else {
+                echo "Error: " . mysqli_error($connect);
+            }
+        }
 
-        $roleLinks = [
-            '3' => [
-                ['label' => 'Home', 'url' => 'admin_dashboard.php'],
-                ['label' => 'User', 'url' => 'user.php'],
-                ['label' => 'Roles', 'url' => 'role.php'],
-                ['label' => 'Permission', 'url' => 'permission.php'],
-            ],
-            '2' => [
-                ['label' => 'About', 'url' => 'about.php'],
-                ['label' => 'Services', 'url' => 'services.php'],
-                ['label' => 'Contact', 'url' => 'contact.php'],
-            ],
-            '1' => [
-                ['label' => 'About', 'url' => 'about.php'],
-                ['label' => 'Edit', 'url' => 'edit_user.php'],
-            ],
-            // Add more roles as needed
-        ];
+        // Function to generate the navbar menu based on permission names// Function to generate the navbar menu based on permissions
+        function generateNavbarMenu($permissions, $permissionData)
+        {
+            $menu = '<ul>';
+            foreach ($permissions as $permission) {
+                if (isset($permissionData[$permission])) {
+                    $url = $permissionData[$permission]['url'];
+                    $displayName = $permissionData[$permission]['display_name'];
+                    $menu .= '<li><a href="' . $url . '">' . $displayName . '</a></li>';
+                }
+            }
+            $menu .= '</ul>';
+            return $menu;
+        }
 
-        // Set default links for unknown roles
-        $defaultLinks = [
-            ['label' => 'About', 'url' => 'about.php'],
-            ['label' => 'Services', 'url' => 'services.php'],
-            ['label' => 'Clients', 'url' => 'clients.php'],
-            ['label' => 'Contact', 'url' => 'contact.php'],
-        ];
+        // Generate navbar menu based on user's permissions
+        $userPermissions = $permissionId;
+        $navbarMenu = generateNavbarMenu($userPermissions, $permissionData);
 
-        // Determine the links based on the user's role
-        $userLinks = isset($roleLinks[$row['role_id']]) ? $roleLinks[$row['role_id']] : $defaultLinks;
+        // Display the generated navbar menu
+        // echo $navbarMenu;
+
+        // Close the database connection
+        mysqli_close($connect);
 
         ?>
 
@@ -148,14 +176,13 @@
                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 
                 <?php
-                // Output the navigation links
-                foreach ($userLinks as $link) {
-                    echo '<a href="' . $link['url'] . '">' . $link['label'] . '</a>';
-                }
+                // Output the generated navbar menu
+                echo $navbarMenu;
                 ?>
             </div>
+        </div>
 
-            <?php
+        <?php
     } else {
 
         echo '<div id="mySidenav" class="sidenav">';
@@ -170,21 +197,21 @@
     ?>
 
 
-        <!-- <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span> -->
+    <!-- <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span> -->
 
 
-        <script>
-            function openNav() {
-                document.getElementById("mySidenav").style.width = "250px";
-                document.getElementById("main").style.marginLeft = "250px";
-            }
+    <script>
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+            document.getElementById("main").style.marginLeft = "250px";
+        }
 
-            function closeNav() {
-                document.getElementById("mySidenav").style.width = "0";
-                document.getElementById("main").style.marginLeft = "0";
-            }
-        </script>
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+            document.getElementById("main").style.marginLeft = "0";
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
 

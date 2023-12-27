@@ -1,7 +1,9 @@
 <?php
 function selectAll($table, $column='*')
 {
-    include '../backend/config.php';
+    @include '../backend/config.php';
+    @include '../../backend/config.php';
+
     //COUNT[id]
     $sql = "SELECT $column FROM " . $table;
     $result = mysqli_query($connect, $sql);

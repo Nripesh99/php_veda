@@ -1,8 +1,12 @@
 <?php
 include 'config.php';
 // session_start();
-include '../assets/selectfromuser.php';
-include_once '../assets/select_all.php';
+@include '../assets/selectfromuser.php';
+@include_once '../assets/select_all.php';
+//using for folder
+@include '../../assets/selectfromuser.php';
+@include_once '../../assets/select_all.php';
+
 $id=$_SESSION['Id'];
 // var_dump($id);
 // die();

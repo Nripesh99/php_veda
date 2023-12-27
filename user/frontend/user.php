@@ -14,12 +14,13 @@
 <body>
     <tr>
     <tr>
-        <?Php
+        <?php
         include '../assets/session.php';
 
         include '../backend/access.php';
         check_user_permission($allowed_permission, '5');
-        include '../assets/navbar2.php'; ?>
+        include '../assets/navbar2.php'; 
+        ?>
         <?php
         if (isset($_SESSION['message'])) {
             $message = $_SESSION['message'];
@@ -49,7 +50,7 @@
             <div class="container">
                 <div class="page-title">
                     <h3>User Roles
-                        <!-- <a href="add_user.php" class="btn btn-sm btn-outline-primary float-end"><i class="fas fa-plus-circle"></i> Add</a> -->
+                        <a href="add_user.php" class="btn btn-sm btn-outline-primary float-end"><i class="fas fa-plus-circle"></i> Add</a>
 
                     </h3>
                 </div>
@@ -83,12 +84,7 @@
                             ?>
                         </tbody>
                     </table>
-                    <script>
-                        // Activate DataTable on your table
-                        $(document).ready(function () {
-                            $('#dataTables-example').DataTable();
-                        });
-                    </script>
+
                 </div>
             </div>
         </div>
