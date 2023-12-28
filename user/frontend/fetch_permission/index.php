@@ -15,6 +15,9 @@
 
     <?php
     include '../../assets/session.php';
+    include '../../backend/access.php';
+    check_user_permission($allowed_permission, '5');
+    include '../../assets/navbar3.php';
     if (isset($_SESSION['message'])) {
         $message = $_SESSION['message'];
         unset($_SESSION['message']);
@@ -38,14 +41,12 @@
     </script>
     <?php
 
-    include '../../backend/access.php';
-    check_user_permission($allowed_permission, '5');
-    include '../../assets/navbar2.php'; ?>
+    ?>
     <button class="btn btn-primary " onclick="history.back()">
         <i class="bi bi-arrow-return-left"></i> Go Back
     </button>
     <h3 class="text-center">Permission Table
-        <a href="add_per.php" class="btn btn-sm btn-outline-primary float-end"><i class="fas fa-plus-circle"></i>
+        <a href="../add_per.php" class="btn btn-sm btn-outline-primary float-end"><i class="fas fa-plus-circle"></i>
             Add</a>
 
     </h3>
@@ -82,14 +83,9 @@
                     {
                         data: "per_id",
                         render: function (data, type, row) {
-                            return (
-                                '<button onclick="editRow(' +
-                                data +
-                                ')">Edit</button> <button onclick="confirmDelete(' +
-                                data +
-                                ')">Delete</button>'
-                            );
-                        },
+                            return '<button onclick="confirmDelete(' + data + ')">Delete</button>';
+                        }
+
                     }
                 ],
             });
@@ -118,13 +114,11 @@
                     if (result.isConfirmed) {
                         // Redirect to the delete URL
                         window.location.href =
-                            "../../backend/role_backend/delete_role.php?id=" + row;
+                            "http://localhost:8000/user/backend/permission_backend/delete_permission.php?id=" + row;
                     }
                 });
         }
-        function editRow(row) {
-            window.location.href = "../edit_role.php?id=" + row;
-        }
+
 
     </script>
 </body>

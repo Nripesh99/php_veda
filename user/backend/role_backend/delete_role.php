@@ -6,6 +6,6 @@ $role_id=$_GET['id'];
     $result=mysqli_query($connect,$sql);
     if($result){
         echo "Deleted  succesfully";
-        header('Location:../../frontend/role.php');
+        header('Location:../../frontend/fetch_role/index.php');
     }
 ?>

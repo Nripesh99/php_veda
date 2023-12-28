@@ -21,11 +21,10 @@ if (isset($_POST['submit'])) {
         $result = mysqli_query($connect, $sql);
         if ($result) {
             $_SESSION['message'] = 'Edited succesfully';
-            header('Location: ../assets/redirect.php');
+            header('Location: http://localhost:8000/user/assets/redirect.php');
         } else {
             $_SESSION['message'] = 'Failed';
-            header('Location:../frontend/redirect.php');
-        }
+            header('Location: http://localhost:8000/user/assets/redirect.php');        }
     } else {
         $image_link = $_FILES['file'];
         $file_upload_path = '../assets/upload/';
@@ -45,12 +44,11 @@ if (isset($_POST['submit'])) {
         $result = mysqli_query($connect, $sql);
         if ($result) {
             $_SESSION['message'] = 'Edited succesfully';
-            header('Location:../frontend/user.php');
-
+            header('Location: http://localhost:8000/user/assets/redirect.php');
         } else {
             $_SESSION['message'] = 'Failed';
-            header('Location:../frontend/user.php');
-        }
+            header('Location: http://localhost:8000/user/assets/redirect.php');
+                }
 
     }
 }

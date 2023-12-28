@@ -11,7 +11,7 @@ if(isset($_POST['submit'])){
     $result=mysqli_query($connect,$sql);
     if($result){
         $_SESSION['message']='role added succesfully';
-        header('Location:../../frontend/role.php');
+        header('Location:../../frontend/fetch_role/index.php');
     }
 }
 ?>

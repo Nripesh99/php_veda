@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
    if ($result) {
       $_SESSION['message'] = "updated role  succesfully";
       // print_r ($_SESSION);
-      header('Location: ../../frontend/role.php');
+      header('Location: ../../frontend/fetch_role/index.php');
    }
 
 }

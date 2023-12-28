@@ -16,7 +16,7 @@
     include '../../assets/session.php';
     include '../../backend/access.php';
     check_user_permission($allowed_permission, '5');
-    include '../../assets/navbar2.php'; ?>
+    include '../../assets/navbar3.php'; ?>
     <?php
     ?>
     <?php
@@ -41,7 +41,7 @@
             }, 3000); // 30 seconds
         });
     </script>
-    <h3 class='text-center'>User Roles
+    <h3 class='text-center'>User
         <a href="add_user.php" class="btn btn-sm btn-outline-primary float-end"><i class="fas fa-plus-circle"></i>
             Add</a>
 
@@ -131,12 +131,12 @@
                     if (result.isConfirmed) {
                         // Redirect to the delete URL
                         window.location.href =
-                            "../../backend/deleteuser.php?id=" + row;
+                            "http://localhost:8000/user/backend/deleteuser.php?id=" + row;
                     }
                 });
         }
         function editRow(row) {
-            window.location.href = "../edit_user.php?id=" + row;
+            window.location.href = "http://localhost:8000/user/frontend/edit_user.php?id=" + row;
         }
 
     </script>

@@ -12,7 +12,7 @@ if($result){
     // session_start();
     // $_SESSION['message'] = "Deleted succesfully";
     else{
-       header('Location: /php_veda/user/frontend/user.php');
+       header('Location: http://localhost:8000/user/frontend/fetch_user/index.php');
         exit;
 
     }

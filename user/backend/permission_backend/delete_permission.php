@@ -5,6 +5,6 @@ $per_id=$_GET['id'];
     $result=mysqli_query($connect,$sql);
     if($result){
         echo "Deleted  succesfully";
-        header('Location:../../frontend/permission.php');
+        header('Location:../../frontend/fetch_permission/index.php');
     }
 ?>

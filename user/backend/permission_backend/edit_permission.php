@@ -9,7 +9,8 @@ $per_id=$_POST['per_id'];
  $sql="UPDATE `permission` SET `per_name`='$per_name' WHERE  `per_id`=$per_id";
  $result=mysqli_query($connect,$sql);
  if($result){
-    echo "updated succesfully";
+   $_SESSION['message']='updated succesfully';
+   header('Location:../../frontend/fetch_permission/index.php');
  }
 }
 ?>

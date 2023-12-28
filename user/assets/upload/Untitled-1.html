@@ -1,0 +1,49 @@
+login -> session - role
+
+
+permission 
+User Management 
+    User list -- user_list
+    User Edit -- user_edit
+    User Delete -- user_delete
+
+<div class="<?= (checkPermission(session[role_id],'user_list'))?'':hidden ?> ">
+    users -- user list
+</div>
+//userlist--kea kea permission pako cha bhaneara ho yo chai
+
+
+
+menu 2
+menu 3
+
+
+function checkPermission($role_id,$$permission_slug){
+check if the permission slug exist
+if(!exist)
+    return true
+else
+    Role - permission relation
+    if yes
+        return true
+    else
+        return false
+    }
+
+add back buttons
+
+permission create
+category - Role / User / Permission
+name - Role List
+slug - role_list
+
+
+role create
+add permissions
+    Role
+        Role List     Role Edit    Role Delete
+
+
+
+
+url hit -> function -- checkPermission()

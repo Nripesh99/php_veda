@@ -7,7 +7,7 @@ include '../backend/access.php';
 $permission_count = count(selectAll('permission'));
 
 include '../backend/config.php';
-include '../assets/navbar2.php';
+include '../assets/navbar3.php';
 
 $user_count = count(selectAll('user'));
 $role_count = count(selectAll('role'));
@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         </p>
                     </div>
                     <div class="card-footer">
-                        <a href="role.php" class="card-link text-white">More Info</a>
+                        <a href="http://localhost:8000/user/frontend/fetch_role/" class="card-link text-white">More Info</a>
                     </div>
                 </div>
             </div>
@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         </p>
                     </div>
                     <div class="card-footer">
-                        <a href="user.php" class="card-link text-white">More Info</a>
+                        <a href="http://localhost:8000/user/frontend/fetch_user/" class="card-link text-white">More Info</a>
                     </div>
                 </div>
             </div>
@@ -85,7 +85,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         </p>
                     </div>
                     <div class="card-footer">
-                        <a href="permission.php" class="card-link text-white">More Info</a>
+                        <a href="http://localhost:8000/user/frontend/fetch_permission/" class="card-link text-white">More Info</a>
                     </div>
                 </div>
             </div>

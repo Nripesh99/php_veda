@@ -32,22 +32,47 @@
     <?php
     include '../assets/session.php';
     include '../assets/selectfromuser.php';
-    include '../assets/navbar2.php';
+    include '../assets/navbar3.php';
     include '../assets/select_join.php';
     include '../backend/config.php';
     include '../assets/select_three_join.php';
     $id = $_SESSION['Id'];
     $rows = select_join('user', 'role', 'role_id', 'Id', $id, 'role');
     $usertype = implode($rows);
+
     $row = select('user', 'Id', $id);
     $image_link = $row['Image'];
-    $permissions = select_join('role', 'roles_permission', 'role_id', 'role.role_id', '1', 'permission_id');
-    $permission = array();
-    foreach ($permissions as $permission_1) {
+    //Getting list of permission
+    $sql_per = "SELECT roles_permission.permission_id FROM `role` JOIN `roles_permission` ON role.role_id=roles_permission.role_id WHERE role.role_id=1";
+    $result_per = mysqli_query($connect, $sql_per);
+    $rows = array();
+    while ($row_b = mysqli_fetch_assoc($result_per)) {
+        $rows[] = $row_b;
+        //permission per_id and role_id
 
-        $permission = select('permission', 'per_id', $permission_1, 'per_name');
     }
-    // var_dump($permission);
+
+
+    //selecting name of the permission
+    $permission_names = array();
+    foreach ($rows as $row_a) {
+        $permission_id = $row_a['permission_id'];
+        // Query to fetch permission_name from the permission table for each permission_id
+        $sql_permission_name = "SELECT per_name FROM `permission` WHERE per_id = $permission_id";
+        $result_permission_name = mysqli_query($connect, $sql_permission_name);
+        if ($row_permission_name = mysqli_fetch_assoc($result_permission_name)) {
+            $permission[] = $row_permission_name['per_name'];
+        }
+    }
+    //SELECT
+    // $permissions = select_join('role', 'roles_permission', 'role_id', 'role.role_id', '1', 'permission_id');
+    // $permissions = select_join("user", "role", "role_id", "Id", 22, "role");
+    //     $permission=array();
+    // foreach ($permissions as $permission) {
+    //     $permission = select('permission', 'per_id', $permission_1, 'per_name');
+    //     var_dump($permission);
+    // }
+    // // var_dump($permission);
     // die();
     
 
@@ -71,9 +96,9 @@
                                 <?php echo $row['Email'] ?>
                             </p>
                             <br>
-                            <div >
+                            <div>
                                 <h5 class="text-center">Granted Permission List</h5>
-                                <ul >
+                                <ul>
                                     <?php foreach ($permission as $permissionList): ?>
                                         <li class=" text-center">
                                             <?php echo $permissionList; ?>

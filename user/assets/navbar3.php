@@ -87,16 +87,16 @@
 
     <div class="topnav">
         <div class="d-flex justify-content-center">
-            <a href="../../user/assets/redirect.php">Home</a>
+            <a href="http://localhost:8000/user/assets/redirect.php">Home</a>
             <!-- <a href="#news">News</a>
             <a href="#contact">Contact</a> -->
             <a href="javascript:void(0)" class="icon" onclick="openNav()">&#9776;</a>
             <?php
-            session_start();
+            // session_start();
             if ($_SESSION) {
-                echo '<a class=" btn-danger btn-sm position-absolute top-0 end-0 mt-0" href="../backend/logout.php">Logout</a>';
+                echo '<a class=" btn-danger btn-sm position-absolute top-0 end-0 mt-0" href="http://localhost:8000/user/backend/logout.php">Logout</a>';
             } else {
-                echo '<a class="btn btn-success btn-sm position-absolute top-0 end-0 mt-0" href="../frontend/loginfile.php">Login</a>';
+                echo '<a class="btn btn-success btn-sm position-absolute top-0 end-0 mt-0" href="http://localhost:8000/user/frontend/loginfile.php">Login</a>';
             }
             ?>
         </div>
@@ -107,7 +107,8 @@
     <?php
 
     require_once 'selectfromuser.php';
-    include '../backend/config.php';
+    @include '../backend/config.php';
+    @include '../../backend/config.php';
     if (!empty($_SESSION['Id'])) {
         $row = select('user', 'Id', $_SESSION['Id'], 'role_id');
         $roles = implode($row);
@@ -124,9 +125,9 @@
         }
         // Define a mapping of permission IDs to URLs
         $permissionData = array(
-            '3' => array('url' => '/role.php', 'display_name' => ' Roles'),
-            '4' => array('url' => '/permissionss.php', 'display_name' => ' Permissions'),
-            '5' => array('url' => '/user.php', 'display_name' => ' Users'),
+            '3' => array('url' => 'http://localhost:8000/user/frontend/fetch_user', 'display_name' => ' Roles'),
+            '4' => array('url' => 'http://localhost:8000/user/frontend/fetch_permission/', 'display_name' => ' Permissions'),
+            '5' => array('url' => 'http://localhost:8000/user/frontend/fetch_user/', 'display_name' => ' Users'),
             // Add more permissions and their corresponding information as needed
         );
         // Selecting permission name based on the permission id given
@@ -180,7 +181,6 @@
                 echo $navbarMenu;
                 ?>
             </div>
-        </div>
 
         <?php
     } else {

@@ -7,7 +7,7 @@ if(isset($_POST['submit'])){
     if($result){
         session_start();
         $_SESSION['message']="Added permission";
-        header('Location:../../frontend/permission.php');
+        header('Location:../../frontend/fetch_permission/index.php');
     }
 }
 ?>
