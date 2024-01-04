@@ -1,5 +1,5 @@
 <?php   
-// 
+
 
 $dbDetails = array( 
     'host' => 'localhost', 

@@ -35,7 +35,7 @@
             header('Location: ../frontend/user_homepage.php');
         }
     }
-    include '../assets/navbar2.php';
+    include '../assets/navbar3.php';
     ?>
      <?php
     if (isset($_SESSION['message'])) {

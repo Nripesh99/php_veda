@@ -2,8 +2,9 @@
 include '../assets/session.php';
 include '../backend/access.php';
 include '../assets/navbar3.php';
-checkUserPermission($allowed_permission_slug, 'role_edit');
+check_user_permission($allowed_permission, 'role');
 include '../backend/config.php';
+include 'fetch_permission/test_function.php';   
 $id = $_GET['id'];
 $row = select('role', 'role_id', $id);
 //selecting all permission
@@ -26,8 +27,7 @@ while ($result = mysqli_fetch_assoc($resulr)) {
         <div class="row justify-content-center">
             <div class="col-md-6">
 
-                <form class="border p-4 rounded shadow form-control" action="../backend/role_backend/edit_role.php"
-                    method="POST">
+                <form class="border p-4 rounded shadow form-control" action="../backend/role_backend/edit_role.php" method="POST">
                     <h2 class="text-center mb-4">Edit Role and Permission</h2>
                     <div class="mb-3">
                         <!-- <label for="username" class="form-label"> Role Name:</label> -->
@@ -43,50 +43,28 @@ while ($result = mysqli_fetch_assoc($resulr)) {
                         <label for="description" class="form-label">Role Description:</label>
                         <input type="text" class="form-control" name="role_desc" id="role_desc" value=<?php echo $row['role_description'] ?> required>
                     </div>
-
-                    <div class="mb-3">
+                    
+                    <div class="mb-3 ">
                         <label for="Add Permission" class="form-label">Permission:</label><br>
                         <?php
-                        $rolePermissions = []; // Associative array to store permissions for each role
-                        
+                        // $perm_id = is_array($perm_id) ? $perm_id : [];  
                         foreach ($rows as $per) {
-                            // Extract role and permission from the 'slug'
-                            //changing from string to array using parts
-                            $parts = explode('_', $per['slug']);
-                            $role = ucfirst($parts[0]); // Capitalize the first letter
-                        
-                            // Initialize an empty array for the role if it doesn't exist
-                            if (!isset($rolePermissions[$role])) {
-                                $rolePermissions[$role] = [];
-                            }
+                            echo $per['per_name'];
 
-                            // Add the permission to the role's array
-                            //slug bata aucha value
-                            $rolePermissions[$role][] = [
-                                'name' => $per['per_name'],
-                                'id' => $per['per_id']
-                            ];
+
+                            $isChecked = in_array($per['per_id'], $perm_id);
+                            echo '<input type="checkbox" name="checkbox_values[]" value="' . $per['per_id'] . '" ' . ($isChecked ? 'checked' : '') . '><br>';
                         }
 
-                        // Display the roles and their permissions with checkboxes
-                        foreach ($rolePermissions as $role => $permissions) {
-                            echo "<strong>$role:</strong> ";
-                            foreach ($permissions as $permission) {
-                                $isChecked = in_array($permission['id'], $perm_id);
-                                echo "{$permission['name']} <input type='checkbox' name='checkbox_values[]' value='{$permission['id']}' " . ($isChecked ? 'checked' : '') . "> ";
-                            }
-                            echo '<br>';
-                        }
                         ?>
+
+
                     </div>
-
-
-
 
                     <div class="mb-3 text-center">
                         <button type="submit" class="btn btn-primary" id="submit">Edit Role</button>
                     </div>
 
-                    <!-- </body>
+<!-- </body>
 
 </html> -->

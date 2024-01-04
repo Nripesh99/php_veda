@@ -13,6 +13,7 @@ if (isset($_POST)) {
         $hash_password = $row['Password'];
         if (password_verify($password, $hash_password)) {
             $_SESSION['Id'] = $row['Id'];
+            $_SESSION['role_id']=$row['role_id'];
             // var_dump($_SESSION);
             // die();
             $usertype = implode(select_join('user', 'role', 'role_id', 'Id', $_SESSION['Id'], 'role'));

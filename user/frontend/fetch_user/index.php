@@ -15,7 +15,8 @@
     <?php
     include '../../assets/session.php';
     include '../../backend/access.php';
-    check_user_permission($allowed_permission, '5');
+    include '../../assets/test_permission.php';
+    check_user_permission($allowed_permission_type, 'user');
     include '../../assets/navbar3.php'; ?>
     <?php
     ?>
@@ -42,8 +43,11 @@
         });
     </script>
     <h3 class='text-center'>User
-        <a href="add_user.php" class="btn btn-sm btn-outline-primary float-end"><i class="fas fa-plus-circle"></i>
-            Add</a>
+        <?php if (checkPermission($role_id, $permission_slug, 'user_add')) { ?>
+
+            <a href="add_user.php" class="btn btn-sm btn-outline-primary float-end"><i class="fas fa-plus-circle"></i>
+                Add</a>
+        <?php } ?>
 
     </h3>
     <table width="100%" class="table table-hover" id="dataTables-example">
@@ -95,13 +99,22 @@
                     {
                         data: "id",
                         render: function (data, type, row) {
-                            return (
-                                '<button onclick="editRow(' +
-                                data +
-                                ')">Edit</button> <button onclick="confirmDelete(' +
-                                data +
-                                ')">Delete</button>'
-                            );
+                            var editButton = '';
+                            var deleteButton = '';
+
+                            <?php if (checkPermission($role_id, $permission_slug, 'user_edit')) { ?>
+                                editButton = '<button onclick="editRow(' + data + ')">Edit</button>';
+                            <?php } else { ?>
+                                editButton = '';
+                            <?php } ?>
+
+                            <?php if (checkPermission($role_id, $permission_slug, 'user_delete')) { ?>
+                                deleteButton = '<button onclick="confirmDelete(' + data + ')">Delete</button>';
+                            <?php } else { ?>
+                                deleteButton = '';
+                            <?php } ?>
+
+                            return editButton + ' ' + deleteButton;
                         },
                     },
                 ],

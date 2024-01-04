@@ -15,7 +15,8 @@
     include '../assets/session.php';
     include '../backend/access.php';
     check_user_permission($allowed_permission, '3');
-    include '../assets/navbar2.php'; ?>
+    include 'fetch_permission/test.php';
+    include '../assets/navbar3.php'; ?>
     <button class="btn btn-primary " onclick="history.back()">
         <i class="bi bi-arrow-return-left"></i> Go Back
     </button>
@@ -83,13 +84,24 @@
                             <tbody>
                                 <?php
                                 $counter = 1;
+                                $a = checkPermission($role_id, $permission_slug, 'role_edit');
+                                var_dump($a);
+
                                 foreach ($row as $rows) {
                                     echo '<tr>';
                                     echo '<td>' . $counter . '</td>';
                                     echo '<td>' . $rows['role'] . '</td>';
                                     echo '<td>' . $rows['role_description'] . '</td>';
                                     echo '<td>';
-                                    echo '<a href="edit_role.php?id=' . $rows['role_id'] . '" class="btn btn-outline-info btn-rounded mr-2"><i class="fas fa-toggle-on pr-2"></i>Edit</a>';
+                                    // $editButtonClass = (checkPermission($role_id, $permission_slug, 'role_edit')) ? '' : 'hidden';
+                                    if(checkPermission($role_id, $permission_slug, 'role_edit') == false){
+                                    echo '<div ' . (checkPermission($role_id, $permission_slug, 'role_edit') ? '' : 'hidden') . '   >';
+                                    // var_dump((checkPermission($role_id, $permission_slug, 'role_edit') ));
+                                    // die();
+                                    }
+                                    echo '<a href="edit_role.php?id=' . $rows['role_id'] . '" class="btn btn-outline-info btn-rounded mr-2">';
+                                    echo '<i class="fas fa-toggle-on pr-2"></i>Edit</a>';
+                                    echo '</div>';
                                     echo '<a href="#" class="btn btn-outline-danger btn-rounded ml-2" onclick="confirmDelete(' . $rows['role_id'] . ')"><i class="fas fa-toggle-on"></i>Delete</a>';
                                     echo '</td>';
                                     echo '</tr>';

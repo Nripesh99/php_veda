@@ -1,8 +1,8 @@
 <?php
 include '../assets/session.php';
-include '../backend/access.php';
-check_user_permission($allowed_permission, '4');
-include '../assets/navbar2.php';
+include '../../backend/access.php';
+checkUserPermission($allowed_permission_slug, 'permission_edit');
+include '../assets/navbar3.php';
 include '../backend/config.php';
 $id = $_GET['id'];
 // include '../assets/selectfromuser.php';

@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (empty($_SESSION['Id'])) {
-    header('location:../backend/logout.php');
+    header('location:http://localhost:8000/user/backend/logout.php');
 } else {
     //     $id = $_SESSION['Id'];
 //     include_once '../backend/config.php';

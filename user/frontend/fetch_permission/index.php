@@ -15,8 +15,9 @@
 
     <?php
     include '../../assets/session.php';
+    include 'test.php';
     include '../../backend/access.php';
-    check_user_permission($allowed_permission, '5');
+    check_user_permission($allowed_permission_type, 'permission');
     include '../../assets/navbar3.php';
     if (isset($_SESSION['message'])) {
         $message = $_SESSION['message'];
@@ -52,9 +53,12 @@
     </h3>
     <table width="100%" class="table table-hover" id="dataTables-example">
         <thead>
-            <tr>
+            <tr class="text-center">
                 <th>ID.No</th>
                 <th>Permission</th>
+                <th>Slug</th>
+                <th>Role_type</th>
+
                 <th>Action</th>
             </tr>
         </thead>
@@ -79,12 +83,20 @@
                 columns: [
                     { data: "per_id" },
                     { data: "per_name" },
+                    { data: "slug" },
+                    { data: "type" },
 
                     {
+                            //permission index
                         data: "per_id",
                         render: function (data, type, row) {
-                            return '<button onclick="confirmDelete(' + data + ')">Delete</button>';
+                            <?php if (checkPermission($role_id, $permission_slug, 'permission_delete')) { ?>
+                                return '<button class="btn btn-danger delete-button mx-auto d-block" onclick="confirmDelete(' + data + ') ">Delete</button>';
+                            <?php } else { ?>
+                                return '';
+                            <?php } ?>
                         }
+
 
                     }
                 ],

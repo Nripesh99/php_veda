@@ -18,8 +18,8 @@
         include '../assets/session.php';
 
         include '../backend/access.php';
-        check_user_permission($allowed_permission, '5');
-        include '../assets/navbar2.php'; 
+        check_user_permission($allowed_permission, 'user');
+        include '../assets/navbar3.php'; 
         ?>
         <?php
         if (isset($_SESSION['message'])) {

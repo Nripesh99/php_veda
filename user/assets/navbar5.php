@@ -92,7 +92,7 @@
             <a href="#contact">Contact</a> -->
             <a href="javascript:void(0)" class="icon" onclick="openNav()">&#9776;</a>
             <?php
-            // session_start();
+            session_start();
             if ($_SESSION) {
                 echo '<a class=" btn-danger btn-sm position-absolute top-0 end-0 mt-0" href="http://localhost:8000/user/backend/logout.php">Logout</a>';
             } else {
@@ -110,23 +110,22 @@
     @include '../backend/config.php';
     @include '../../backend/config.php';
     include 'var_dump.php';
+    // session_start();
     if (!empty($_SESSION['Id'])) {
         $row = select('user', 'Id', $_SESSION['Id'], 'role_id');
         $roles = implode($row);
         //getting list of permissions
-        $sql_i = "SELECT permission_id, per_name, type, slug 
-        FROM roles_permission 
-        JOIN permission ON permission.per_id = roles_permission.permission_id 
-        WHERE role_id = $roles";
+        $sql_i = "SELECT `permission_id`, `role` FROM roles_permission 
+        JOIN role ON role.role_id = roles_permission.role_id 
+        WHERE roles_permission.role_id = $roles";
         $results = mysqli_query($connect, $sql_i);
         $permissionId = array();
-        $permissionType = array();
-        $permissionSlug = array();
+        $role_name = array();
         if ($results) {
             while ($row = mysqli_fetch_assoc($results)) {
                 $permissionId[] = $row['permission_id'];
-                $permissionType[]=$row['type'];
-                $permissionSlug[]=$row['slug'];
+                $role_name[] = $row['role'];
+
 
             }
         } else {
@@ -134,21 +133,78 @@
         }
         // Define a mapping of permission IDs to URLs
         $permissionData = array(
-            'role' => array('url' => 'http://localhost:8000/user/frontend/fetch_role', 'display_name' => ' Roles'),
-            'permission' => array('url' => 'http://localhost:8000/user/frontend/fetch_permission/', 'display_name' => ' Permissions'),
-            'user' => array('url' => 'http://localhost:8000/user/frontend/fetch_user/', 'display_name' => ' Users'),
-            // Add more permissions and their corresponding information as needed
+            'role' => array(
+                // 'url' => 'http://localhost:8000/user/frontend/fetch_role',
+                // 'display_name' => 'Role',
+                'permissions' => array(
+                    'add' => array(
+                        'url' => 'http://localhost:8000/user/frontend/fetch_add_role_permission',
+                        'display_name' => 'Add',
+                    ),
+                    'delete' => array(
+                        'url' => 'http://localhost:8000/user/frontend/fetch_delete_role_permission',
+                        'display_name' => 'Delete',
+                    ),
+                    'edit' => array(
+                        'url' => 'http://localhost:8000/user/frontend/fetch_edit_role_permission',
+                        'display_name' => 'Edit',
+                    ),
+                ),
+            ),
+            'permission' => array(
+                // 'url' => 'http://localhost:8000/user/frontend/fetch_permission',
+                // 'display_name' => 'Permission',
+                'permissions' => array(
+                    'add' => array(
+                        'url' => 'http://localhost:8000/user/frontend/fetch_add_permission',
+                        'display_name' => 'Add',
+                    ),
+                    'delete' => array(
+                        'url' => 'http://localhost:8000/user/frontend/fetch_delete_permission',
+                        'display_name' => 'Delete',
+                    ),
+                    'edit' => array(
+                        'url' => 'http://localhost:8000/user/frontend/fetch_edit_permission',
+                        'display_name' => 'Edit',
+                    ),
+                ),
+            ),
+            'user' => array(
+                // 'url' => 'http://localhost:8000/user/frontend/fetch_user',
+                // 'display_name' => 'User',
+                'permissions' => array(
+                    'add' => array(
+                        'url' => 'http://localhost:8000/user/frontend/fetch_add_user',
+                        'display_name' => 'Add',
+                    ),
+                    'delete' => array(
+                        'url' => 'http://localhost:8000/user/frontend/fetch_delete_user',
+                        'display_name' => 'Delete',
+                    ),
+                    'edit' => array(
+                        'url' => 'http://localhost:8000/user/frontend/fetch_edit_user',
+                        'display_name' => 'Edit',
+                    ),
+                ),
+            ),
         );
+
         // Selecting permission name based on the permission id given
         $per_name = array();
+        $per_slug = array();
+        $per_type = array();
+
         foreach ($permissionId as $per_id) {
-            $sqli_3 = "SELECT per_name, type FROM permission WHERE per_id = $per_id";
+            $sqli_3 = "SELECT per_name, slug, type  FROM permission WHERE per_id = $per_id";
             $results_3 = mysqli_query($connect, $sqli_3);
 
             if ($results_3) {
                 while ($row_3 = mysqli_fetch_assoc($results_3)) {
                     $per_name[] = $row_3['per_name'];
-                    $per_type[]=$row_3['type'];
+                    $per_slug[] = $row_3['slug'];
+                    $per_type[] = $row_3['type'];
+
+
                 }
             } else {
                 echo "Error: " . mysqli_error($connect);
@@ -156,27 +212,40 @@
         }
 
         // Function to generate the navbar menu based on permission names// Function to generate the navbar menu based on permissions
-        function generateNavbarMenu($permissions, $permissionData, $permissionType)
+        function generateNavbarMenu($permissions, $per_type, $permissionData, $per_name)
         {
             $menu = '<ul>';
             foreach ($permissions as $permission) {
-                if (isset($permissionData[$permission]) ) {
+                // Assuming $permission is a string
+                // dump($permission);
+                if (is_string($permission)) {
+                    if (isset($permissionData[$permission][$per_name])) {
 
-                    $url = $permissionData[$permission]['url'];
-                    $displayName = $permissionData[$permission]['display_name'];
-                    $menu .= '<li><a href="' . $url . '">' . $displayName . '</a></li>';
+                        $perTypeKey = $permissionData[$permission][$per_type] ?? null;
+                        $perNameKey = $permissionData[$permission][$per_name] ?? null;
+
+                        if ($perTypeKey !== null && $perNameKey !== null && isset($permissionData[$perTypeKey][$perNameKey])) {
+                            $url = $permissionData[$perTypeKey][$perNameKey]['url'];
+                            $displayName = $permissionData[$perTypeKey][$perNameKey]['display_name'];
+
+                            $menu .= '<li><a href="' . $url . '">' . $displayName . '</a></li>';
+                        }
+                    }
+
                 }
             }
             $menu .= '</ul>';
             return $menu;
         }
 
+
+
+
+
         // Generate navbar menu based on user's permissions
-        // $userPermissions = $permissionId;
-        $permissionType = array_unique($permissionType);
-        $userPermissions = $permissionType;
-        $permissionType=$permissionId;
-        $navbarMenu = generateNavbarMenu($userPermissions, $permissionData, $permissionType);
+        $userPermissions = $permissionId;
+        $navbarMenu = generateNavbarMenu($userPermissions, $per_type, $permissionData, $per_name);
+        var_dump($navbarMenu);
 
         // Display the generated navbar menu
         // echo $navbarMenu;
@@ -185,7 +254,7 @@
         mysqli_close($connect);
 
         ?>
- 
+
         <div id="main">
             <div id="mySidenav" class="sidenav">
                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>

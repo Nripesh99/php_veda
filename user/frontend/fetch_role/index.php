@@ -15,17 +15,20 @@
 
     <?php
     include '../../assets/session.php';
+    include '../../assets/test_permission.php';
+
     ?>
+
     <?php
 
     include '../../backend/access.php';
-    check_user_permission($allowed_permission, '5');
+    // check_user_permission($allowed_permission, '5');
     include '../../assets/navbar3.php'; ?>
     <?php
     if (isset($_SESSION['message'])) {
-    $message = $_SESSION['message'];
-    unset($_SESSION['message']);
-    echo '<div class="container mt-3">';
+        $message = $_SESSION['message'];
+        unset($_SESSION['message']);
+        echo '<div class="container mt-3">';
         echo '<div id="messages" class="alert alert-dark text-center">' . $message . '</div>';
         echo '</div>';
 
@@ -51,8 +54,14 @@
     </button>
 
     <h3 class='text-center'>User Roles
-        <a href="http://localhost:8000/user/frontend/add_role.php"
-            class="btn btn-sm btn-outline-primary float-end btn-lg"><i class="fas fa-plus-circle "></i> Add</a>
+        <?php if (checkPermission($role_id, $permission_slug, 'role_add')) { ?>
+            
+            <a href="http://localhost:8000/user/frontend/add_role.php"
+                class="btn btn-sm btn-outline-primary float-end btn-lg">
+                <i class="fas fa-plus-circle "></i> Add
+            </a>
+        <?php } ?>
+
         <table width="100%" class="table table-hover" id="dataTables-example">
             <thead>
                 <tr>
@@ -87,15 +96,24 @@
                         {
                             data: "role_id",
                             render: function (data, type, row) {
-                                return (
-                                    '<button onclick="editRow(' +
-                                    data +
-                                    ')">Edit</button> <button onclick="confirmDelete(' +
-                                    data +
-                                    ')">Delete</button>'
-                                );
+                                var editButton = '';
+                                var deleteButton = '';
+
+                                <?php if (checkPermission($role_id, $permission_slug, 'role_manage')) { ?>
+                                    editButton = '<button onclick="editRow(' + data + ')">Edit</button>';
+                                <?php } else { ?>
+                                    editButton = '';
+                                <?php } ?>
+
+                                <?php if (checkPermission($role_id, $permission_slug, 'role_delete')) { ?>
+                                    deleteButton = '<button onclick="confirmDelete(' + data + ')">Delete</button>';
+                                <?php } else { ?>
+                                    deleteButton = '';
+                                <?php } ?>
+
+                                return editButton + ' ' + deleteButton;
                             },
-                        },
+                        }
                     ],
                 });
             });
@@ -123,12 +141,12 @@
                         if (result.isConfirmed) {
                             // Redirect to the delete URL
                             window.location.href =
-                                "../../backend/role_backend/delete_role.php?id=" + row;
+                                "http://localhost:8000/user/backend/role_backend/delete.php?id=" + row;
                         }
                     });
             }
             function editRow(row) {
-                window.location.href = "../edit_role.php?id=" + row;
+                window.location.href = "http://localhost:8000/user/frontend/edit_role.php?id=" + row;
             }
 
         </script>

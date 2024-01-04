@@ -1,57 +1,63 @@
 <?php
 include 'config.php';
 // session_start();
+@include '../assets/session.php';
 @include '../assets/selectfromuser.php';
 @include_once '../assets/select_all.php';
 //using for folder
 @include '../../assets/selectfromuser.php';
 @include_once '../../assets/select_all.php';
-
 $id=$_SESSION['Id'];
-// var_dump($id);
-// die();
-$row = select('user', 'Id', $id, '   role_id');
-$role_id=implode($row);
-//user ko role
+$role_id=$_SESSION['role_id'];
 
-// $role_id=$row['role_id'];
-// $condition = "role_id ='".$row. "'";
-// $permission = array();
-$allowed_permission = array();
-// $permission = selectAll('permission', 'per_id');
-$sql = "SELECT permission_id FROM roles_permission WHERE role_id=$role_id";
+$allowed_permission_type = array();
+$allowed_permission_slug = array();
+
+$sql = "SELECT `type`, `slug` FROM roles_permission JOIN permission on roles_permission.permission_id=permission.per_id WHERE role_id=$role_id";
 $result = mysqli_query($connect, $sql);
-// var_dump($sql);
+while ($rows = mysqli_fetch_assoc($result)) {
+    $allowed_permission_type[] = $rows['type'];
+    $allowed_permission_slug[] = $rows['slug'];
+    
+    
+}
+// echo '<pre>';
+// var_dump($allowed_permission_slug);
+// echo '</pre>';
 // die();
 
-while ($rows = mysqli_fetch_assoc($result)) {
-    // var_dump($rows);
-    $allowed_permission[] = $rows['permission_id'];
-}
-function check_user_permission($allowed_permission,$per_id)
+
+function check_user_permission($allowed_permission_type,$per_type)
 {
  
     $found = false;
-    // foreach ($allowed_permissions as $element) {
-        if (in_array($per_id, $allowed_permission)) {
-            // var_dump(in_array($element, $permission));
-            // die();
+        if (in_array($per_type, $allowed_permission_type)) {
+           
             $found = true;
 
-            // break;
         }
     
     if ($found) {
         echo '';
         
     } else {
-        // echo 'keacha ';
-        header('Location: ../assets/redirect.php');
-        // header('Location: ../instagram.com');
+        header('Location:http://localhost:8000/user/assets/redirect.php');
     }
 }
+function checkUserPermission($allowed_permission_slug, $per_types){
+    $found = false;
+    if (in_array($per_types, $allowed_permission_slug)) {
+       
+        $found = true;
 
-// check_user_permission($allowed_permission,$per_id);
+    }
 
-// Usage
+if ($found) {
+    echo '';
+    
+} else {
+    header('Location:http://localhost:8000/user/assets/redirect.php');
+}
+
+}
 

@@ -9,7 +9,7 @@
 </head>
 <?php
 include '../assets/session.php';
-include '../assets/navbar2.php';
+include '../assets/navbar3.php';
 ?>
 <div class="container-fluid mt-5">
     <div class="row justify-content-center">
@@ -32,8 +32,6 @@ include '../assets/navbar2.php';
                     <button type="submit" class="btn btn-primary" name="submit" id="submit">Add Role</button>
                 </div>
 
-                <body>
 
-                </body>
 
 </html>

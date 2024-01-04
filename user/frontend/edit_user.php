@@ -11,8 +11,8 @@
 <?php
 include '../assets/session.php';
 include '../backend/access.php';
-include '../assets/navbar2.php';
-check_user_permission($allowed_permission, '5');
+include '../assets/navbar3.php';
+checkUserPermission($allowed_permission_slug, 'user_edit');
 include '../backend/config.php';
 $id = $_GET['id'];
 // var_dump($_GET['id']);

@@ -36,6 +36,8 @@
     include '../assets/select_join.php';
     include '../backend/config.php';
     include '../assets/select_three_join.php';
+    // include '../assets/select_all.php';
+    include '../assets/test_permission.php';
     $id = $_SESSION['Id'];
     $rows = select_join('user', 'role', 'role_id', 'Id', $id, 'role');
     $usertype = implode($rows);
@@ -55,26 +57,17 @@
 
     //selecting name of the permission
     $permission_names = array();
+    $permission_type=array();
     foreach ($rows as $row_a) {
         $permission_id = $row_a['permission_id'];
         // Query to fetch permission_name from the permission table for each permission_id
-        $sql_permission_name = "SELECT per_name FROM `permission` WHERE per_id = $permission_id";
+        $sql_permission_name = "SELECT per_name, type,slug FROM `permission` WHERE per_id = $permission_id";
         $result_permission_name = mysqli_query($connect, $sql_permission_name);
         if ($row_permission_name = mysqli_fetch_assoc($result_permission_name)) {
-            $permission[] = $row_permission_name['per_name'];
+            $permissionss[] = $row_permission_name['slug'];
         }
     }
-    //SELECT
-    // $permissions = select_join('role', 'roles_permission', 'role_id', 'role.role_id', '1', 'permission_id');
-    // $permissions = select_join("user", "role", "role_id", "Id", 22, "role");
-    //     $permission=array();
-    // foreach ($permissions as $permission) {
-    //     $permission = select('permission', 'per_id', $permission_1, 'per_name');
-    //     var_dump($permission);
-    // }
-    // // var_dump($permission);
-    // die();
-    
+ 
 
 
 
@@ -99,9 +92,11 @@
                             <div>
                                 <h5 class="text-center">Granted Permission List</h5>
                                 <ul>
-                                    <?php foreach ($permission as $permissionList): ?>
+                                    <?php foreach ($permissionss as $permission_ist): ?>
                                         <li class=" text-center">
-                                            <?php echo $permissionList; ?>
+                                            <?php print_r( $permission_ist);
+                                                    
+                                            ?>
                                         </li>
                                     <?php endforeach; ?>
                                 </ul>
@@ -111,8 +106,11 @@
                         <div class="col-12 col-md-6 text-center">
                             <img src="<?php echo $image_link ?>" alt="Profile" class="profile-image mt-3">
                             <div class="mt-4">
-                                <a href="../frontend/edit_user.php?id=<?php echo $row['Id']; ?>"
-                                    class="btn btn-primary">Edit</a>
+                                <?php if(checkPermission($_SESSION['role_id'], $permission_slug, 'user_edit')){?>
+
+                                    <a href="../frontend/edit_user.php?id=<?php echo $row['Id']; ?>"
+                                        class="btn btn-primary">Edit</a>
+                                <?php } ?>
                                 <!-- <a href="../backend/deleteuser.php?id=<?php echo $row['Id']; ?>" class="btn btn-danger mt-2">Delete</a> -->
                             </div>
                         </div>
