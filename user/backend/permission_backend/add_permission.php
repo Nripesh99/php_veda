@@ -1,6 +1,8 @@
 <?php
 include '../../backend/config.php';
-
+include '../access.php';
+check_user_permission($allowed_permission_type, 'permission');
+checkUserPermission($allowed_permission_slug,'permission_add');
 if (isset($_POST['submit'])) {
     $per_name = $_POST['name'];
     $per_name = strtolower(str_replace(' ', '', $per_name));

@@ -2,6 +2,7 @@
 include '../assets/session.php';
 include '../backend/access.php';
 include '../assets/navbar3.php';
+check_user_permission($allowed_permission_type,'role');
 checkUserPermission($allowed_permission_slug, 'role_edit');
 include '../backend/config.php';
 $id = $_GET['id'];

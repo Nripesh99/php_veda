@@ -9,7 +9,10 @@
 </head>
 <?php
 include '../assets/session.php';
+include '../backend/access.php';
 include '../assets/navbar3.php';
+check_user_permission($allowed_permission_type, 'role');
+checkUserPermission($allowed_permission_slug, 'role_add');
 ?>
 <div class="container-fluid mt-5">
     <div class="row justify-content-center">

@@ -22,7 +22,7 @@
     <?php
 
     include '../../backend/access.php';
-    // check_user_permission($allowed_permission, '5');
+    check_user_permission($allowed_permission_type, 'role');
     include '../../assets/navbar3.php'; ?>
     <?php
     if (isset($_SESSION['message'])) {
@@ -99,7 +99,7 @@
                                 var editButton = '';
                                 var deleteButton = '';
 
-                                <?php if (checkPermission($role_id, $permission_slug, 'role_manage')) { ?>
+                                <?php if (checkPermission($role_id, $permission_slug, 'role_edit')) { ?>
                                     editButton = '<button onclick="editRow(' + data + ')">Edit</button>';
                                 <?php } else { ?>
                                     editButton = '';
@@ -141,7 +141,7 @@
                         if (result.isConfirmed) {
                             // Redirect to the delete URL
                             window.location.href =
-                                "http://localhost:8000/user/backend/role_backend/delete.php?id=" + row;
+                                "http://localhost:8000/user/backend/role_backend/delete_role.php?id=" + row;
                         }
                     });
             }

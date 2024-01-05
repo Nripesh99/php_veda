@@ -10,6 +10,12 @@
 </head>
 
 <body>
+    <?php
+        include '../backend/access.php';
+        check_user_permission($allowed_permission_type, 'permission');
+        checkUserPermission($allowed_permission_slug, 'permission_add');
+
+    ?>
     <div class="container-fluid mt-5">
         <div class="row justify-content-center">
             <div class="col-md-6">

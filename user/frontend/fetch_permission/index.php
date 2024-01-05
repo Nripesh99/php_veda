@@ -47,8 +47,11 @@
         <i class="bi bi-arrow-return-left"></i> Go Back
     </button>
     <h3 class="text-center">Permission Table
-        <a href="../add_per.php" class="btn btn-sm btn-outline-primary float-end"><i class="fas fa-plus-circle"></i>
-            Add</a>
+        <?php if (checkPermission($role_id, $permission_slug, 'role_add')) { ?>
+
+            <a href="../add_per.php" class="btn btn-sm btn-outline-primary float-end"><i class="fas fa-plus-circle"></i>
+                Add</a>
+        <?php } ?>
 
     </h3>
     <table width="100%" class="table table-hover" id="dataTables-example">
@@ -87,7 +90,7 @@
                     { data: "type" },
 
                     {
-                            //permission index
+                        //permission index
                         data: "per_id",
                         render: function (data, type, row) {
                             <?php if (checkPermission($role_id, $permission_slug, 'permission_delete')) { ?>

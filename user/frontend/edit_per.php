@@ -1,6 +1,6 @@
 <?php
 include '../assets/session.php';
-include '../../backend/access.php';
+include '../backend/access.php';
 checkUserPermission($allowed_permission_slug, 'permission_edit');
 include '../assets/navbar3.php';
 include '../backend/config.php';

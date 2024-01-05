@@ -45,7 +45,7 @@
     <h3 class='text-center'>User
         <?php if (checkPermission($role_id, $permission_slug, 'user_add')) { ?>
 
-            <a href="add_user.php" class="btn btn-sm btn-outline-primary float-end"><i class="fas fa-plus-circle"></i>
+            <a href="../Createuser.php" class="btn btn-sm btn-outline-primary float-end"><i class="fas fa-plus-circle"></i>
                 Add</a>
         <?php } ?>
 

@@ -1,5 +1,8 @@
 <?php 
 if(isset($_POST['submit'])){
+  include '../access.php';
+check_user_permission($allowed_permission_type, 'permission');
+checkUserPermission($allowed_permission_slug,'permission_edit');
 
  include '../config.php';
 

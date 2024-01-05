@@ -1,8 +1,9 @@
 <?php
 include '../../assets/session.php';
 include '../../backend/config.php';
-// include '../access.php';
-// check_user_permission($allowed_permission, '3');
+include '../access.php';
+check_user_permission($allowed_permission, 'role');
+checkUserPermission($allowed_permission_slug,'role_add');
 
 if(isset($_POST['submit'])){
     $role_name=$_POST['role_name'];
