@@ -42,6 +42,9 @@
             }, 3000); // 30 seconds
         });
     </script>
+    <button class="btn btn-primary " onclick="history.back()">
+        <i class="bi bi-arrow-return-left"></i> Go Back
+    </button>
     <h3 class='text-center'>User
         <?php if (checkPermission($role_id, $permission_slug, 'user_add')) { ?>
 
@@ -50,10 +53,13 @@
         <?php } ?>
 
     </h3>
+
     <table width="100%" class="table table-hover" id="dataTables-example">
         <thead>
             <tr>
-                <th>ID.No</th>
+                <th>S.no</th>
+
+                <!-- <th>ID.No</th> -->
                 <th>Name</th>
                 <th>Email</th>
                 <th>Address</th>
@@ -81,7 +87,8 @@
                     dataSrc: "data",
                 },
                 columns: [
-                    { data: "id" },
+                    { data: null },
+                    // { data: "id" },
                     { data: "Name" },
                     { data: "Email" },
                     { data: "Address" },
@@ -118,6 +125,10 @@
                         },
                     },
                 ],
+                rowCallback: function (row, data, dataIndex) {
+                    // Set the serial number in the first column
+                    $(row).find('td:eq(0)').text(dataIndex + 1);
+                },
             });
         });
 

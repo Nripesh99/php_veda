@@ -57,7 +57,9 @@
     <table width="100%" class="table table-hover" id="dataTables-example">
         <thead>
             <tr class="text-center">
-                <th>ID.No</th>
+                <th>S.no</th>
+
+                <!-- <th>ID.No</th> -->
                 <th>Permission</th>
                 <th>Slug</th>
                 <th>Role_type</th>
@@ -84,7 +86,8 @@
                     dataSrc: "data",
                 },
                 columns: [
-                    { data: "per_id" },
+                    { data: null },
+                    // { data: "per_id" },
                     { data: "per_name" },
                     { data: "slug" },
                     { data: "type" },
@@ -103,6 +106,10 @@
 
                     }
                 ],
+                rowCallback: function (row, data, dataIndex) {
+                    // Set the serial number in the first column
+                    $(row).find('td:eq(0)').text(dataIndex + 1);
+                },
             });
         });
 

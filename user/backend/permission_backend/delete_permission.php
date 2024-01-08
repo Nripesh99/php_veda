@@ -1,5 +1,7 @@
 <?php
 include '../../backend/config.php';
+include '../../assets/session.php';
+
 include '../access.php';
 session_start();
 check_user_permission($allowed_permission_type, 'permission');

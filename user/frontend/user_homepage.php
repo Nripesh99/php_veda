@@ -111,7 +111,11 @@
                                     <a href="../frontend/edit_user.php?id=<?php echo $row['Id']; ?>"
                                         class="btn btn-primary">Edit</a>
                                 <?php } ?>
-                                <!-- <a href="../backend/deleteuser.php?id=<?php echo $row['Id']; ?>" class="btn btn-danger mt-2">Delete</a> -->
+                                <?php if(checkPermission($_SESSION['role_id'], $permission_slug, 'user_delete')){?>
+
+                                    <a onclick="confirmDelete(<?php echo $row['Id']; ?>)" class="btn btn-danger mt-2">Delete</a>
+                                <?php } ?>
+
                             </div>
                         </div>
                     </div>
@@ -121,6 +125,35 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+                    function confirmDelete(row) {
+                const swalWithBootstrapButtons = Swal.mixin({
+                    customClass: {
+                        confirmButton: "btn btn-success",
+                        cancelButton: "btn btn-danger",
+                    },
+                    buttonsStyling: false,
+                });
+
+                swalWithBootstrapButtons
+                    .fire({
+                        title: "Are you sure?",
+                        text: "You won't be able to revert this!",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonText: "Yes, delete it!",
+                        cancelButtonText: "No, cancel!",
+                        reverseButtons: true,
+                    })
+                    .then((result) => {
+                        if (result.isConfirmed) {
+                            // Redirect to the delete URL
+                            window.location.href =
+                                "http://localhost:8000/user/backend/role_backend/delete_role.php?id=" + row;
+                        }
+                    });
+                }
+    </script>
 
 </body>
 

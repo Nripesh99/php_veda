@@ -1,6 +1,8 @@
 <?php
 session_start();
+include '../../assets/session.php'; 
 include '../access.php';
+
 check_user_permission($allowed_permission_type, 'role');
 checkUserPermission($allowed_permission_slug,'role_edit');
 

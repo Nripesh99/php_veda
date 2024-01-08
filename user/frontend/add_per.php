@@ -10,6 +10,9 @@
 </head>
 
 <body>
+<button class="btn btn-primary " onclick="history.back()">
+        <i class="bi bi-arrow-return-left"></i> Go Back
+    </button>
     <?php
         include '../backend/access.php';
         check_user_permission($allowed_permission_type, 'permission');

@@ -1,12 +1,11 @@
 <?php
 include 'config.php';
 include '../assets/session.php';
-session_start();
 if (isset($_POST['submit'])) {
 
     $id = $_POST['id'];
 
-
+        
         $role_id = $_POST['role'];
     
     // var_dump($role_id);
@@ -35,7 +34,7 @@ if (isset($_POST['submit'])) {
         if (move_uploaded_file($file_temp, $file)) {
             echo "";
         } else {
-            echo "unable to upload file";
+            $_SESSION['message'] = "unable to upload file";
         }
         $sql = "UPDATE user SET Name='$name', Email='$email',Password='$hash_password',Address='$address', Image='$file',role_id='$role_id' WHERE Id=$id";
         // var_dump($sql);

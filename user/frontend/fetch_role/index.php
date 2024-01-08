@@ -55,7 +55,7 @@
 
     <h3 class='text-center'>User Roles
         <?php if (checkPermission($role_id, $permission_slug, 'role_add')) { ?>
-            
+
             <a href="http://localhost:8000/user/frontend/add_role.php"
                 class="btn btn-sm btn-outline-primary float-end btn-lg">
                 <i class="fas fa-plus-circle "></i> Add
@@ -65,7 +65,8 @@
         <table width="100%" class="table table-hover" id="dataTables-example">
             <thead>
                 <tr>
-                    <th>ID.No</th>
+                    <th>S.no</th>
+                    <!-- <th>ID.No</th> -->
                     <th>Role</th>
                     <th>Role Description</th>
                     <th>Action</th>
@@ -90,7 +91,8 @@
                         dataSrc: "data",
                     },
                     columns: [
-                        { data: "role_id" },
+                        { data: null },
+                        // { data: "role_id" },
                         { data: "role" },
                         { data: "role_description" },
                         {
@@ -115,6 +117,10 @@
                             },
                         }
                     ],
+                    rowCallback: function (row, data, dataIndex) {
+                        // Set the serial number in the first column
+                        $(row).find('td:eq(0)').text(dataIndex + 1);
+                    },
                 });
             });
 

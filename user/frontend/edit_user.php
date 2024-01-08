@@ -40,6 +40,9 @@ $row_a = selectAll('role');
 ?>
 
 <body>
+<button class="btn btn-primary " onclick="history.back()">
+        <i class="bi bi-arrow-return-left"></i> Go Back
+    </button>
 
     <div class="container mt-5">
         <form action="../backend/edituser.php" method="POST" enctype="multipart/form-data">
@@ -70,14 +73,13 @@ $row_a = selectAll('role');
             </div>
             <?php if ($currentRole['role'] !== 'user') { ?>
             <div class="mb-3">
-
                 <label for="role" class="form-label">Change Role</label>
                 <?php if($row['role_id'] == "3"):?>
                 <input type="hidden" name="role" value="3">
                 <input type="text" class="form-control" value="Super Admin" readonly>
                 </select>
                 <?php else:?>
-                <select id="cars" name="role" class="form-select">
+                <select id="role" name="role" class="form-select">
                     <?php
                         foreach ($row_a as $rows) { 
                             if ($rows['role'] !== 'super_admin') {
@@ -107,7 +109,7 @@ $row_a = selectAll('role');
                                     $selected = ($rows['role'] === $currentRole) ? 'selected' : '';
                                     $disabled = ($rows['role'] === $currentRole) ? 'disabled' : '';
                                     ?>
-                    <option value="<?php echo $rows['role_id'] ?>" <?php echo $selected . $disabled; ?>hidden>
+                    <option value="" <?php echo $selected . $disabled; ?>hidden>
                         <?php echo $rows['role']; ?>
                     </option>
                     <?php

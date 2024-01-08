@@ -16,6 +16,9 @@ checkUserPermission($allowed_permission_slug, 'role_add');
 ?>
 <div class="container-fluid mt-5">
     <div class="row justify-content-center">
+    <button class="btn btn-primary " onclick="history.back()">
+        <i class="bi bi-arrow-return-left"></i> Go Back
+    </button>
         <div class="col-md-6">
 
             <form class="border p-4 rounded shadow" action="../backend/role_backend/create_role.php" method="POST">

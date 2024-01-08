@@ -22,6 +22,9 @@ while ($result = mysqli_fetch_assoc($resulr)) {
 
 
 <body>
+<button class="btn btn-primary " onclick="history.back()">
+        <i class="bi bi-arrow-return-left"></i> Go Back
+    </button>
     <div class="container-fluid mt-5">
         <div class="row justify-content-center">
             <div class="col-md-6">

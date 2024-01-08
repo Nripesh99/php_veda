@@ -125,8 +125,8 @@
         if ($results) {
             while ($row = mysqli_fetch_assoc($results)) {
                 $permissionId[] = $row['permission_id'];
-                $permissionType[]=$row['type'];
-                $permissionSlug[]=$row['slug'];
+                $permissionType[] = $row['type'];
+                $permissionSlug[] = $row['slug'];
 
             }
         } else {
@@ -148,7 +148,7 @@
             if ($results_3) {
                 while ($row_3 = mysqli_fetch_assoc($results_3)) {
                     $per_name[] = $row_3['per_name'];
-                    $per_type[]=$row_3['type'];
+                    $per_type[] = $row_3['type'];
                 }
             } else {
                 echo "Error: " . mysqli_error($connect);
@@ -160,7 +160,7 @@
         {
             $menu = '<ul>';
             foreach ($permissions as $permission) {
-                if (isset($permissionData[$permission]) ) {
+                if (isset($permissionData[$permission])) {
 
                     $url = $permissionData[$permission]['url'];
                     $displayName = $permissionData[$permission]['display_name'];
@@ -175,7 +175,7 @@
         // $userPermissions = $permissionId;
         $permissionType = array_unique($permissionType);
         $userPermissions = $permissionType;
-        $permissionType=$permissionId;
+        $permissionType = $permissionId;
         $navbarMenu = generateNavbarMenu($userPermissions, $permissionData, $permissionType);
 
         // Display the generated navbar menu
@@ -185,7 +185,7 @@
         mysqli_close($connect);
 
         ?>
- 
+
         <div id="main">
             <div id="mySidenav" class="sidenav">
                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
@@ -201,10 +201,10 @@
 
         echo '<div id="mySidenav" class="sidenav">';
         echo '<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>';
-        echo '<a href="#">About</a>';
-        echo '<a href="#">Services</a>';
-        echo '<a href="#">Clients</a>';
-        echo '<a href="#">Contact</a>';
+        echo '<a href="http://localhost:8000/user/assets/redirect.php">Home</a>';
+        // echo '<a href="#">Services</a>';
+        // echo '<a href="#">Clients</a>';
+        // echo '<a href="#">Contact</a>';
         echo '</div>';
     }
 
@@ -226,6 +226,7 @@
             }
         </script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
 
 
